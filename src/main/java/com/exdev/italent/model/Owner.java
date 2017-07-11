@@ -31,7 +31,7 @@ public class Owner implements Serializable {
 
 	private String instagram;
 
-	private String key;
+	private String uid;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modify_date")
@@ -108,13 +108,7 @@ public class Owner implements Serializable {
 		this.instagram = instagram;
 	}
 
-	public String getKey() {
-		return this.key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
+	
 
 	public Date getModifyDate() {
 		return this.modifyDate;
@@ -220,6 +214,14 @@ public class Owner implements Serializable {
 		work.setOwner(null);
 
 		return work;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }

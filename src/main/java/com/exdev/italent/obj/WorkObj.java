@@ -23,8 +23,10 @@ public class WorkObj extends Obj{
 	private String notes;
 
 	private String title;
-
+	
+	
 	private OwnerObj owner;
+	
 	private List<WorkDetailsObj> workDetails;
 	
 	public WorkObj() {

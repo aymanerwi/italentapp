@@ -31,7 +31,7 @@ public class Advertisement implements Serializable {
 	@Column(name="expire_date")
 	private Date expireDate;
 
-	private String key;
+	private String uid;
 
 	private double latitude;
 
@@ -100,13 +100,7 @@ public class Advertisement implements Serializable {
 		this.expireDate = expireDate;
 	}
 
-	public String getKey() {
-		return this.key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
+	
 
 	public double getLatitude() {
 		return this.latitude;
@@ -192,6 +186,14 @@ public class Advertisement implements Serializable {
 		comment.setAdvertisement(null);
 
 		return comment;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }

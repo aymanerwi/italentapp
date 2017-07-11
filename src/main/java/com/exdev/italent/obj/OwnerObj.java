@@ -27,6 +27,8 @@ public class OwnerObj extends Obj {
 	
 	private String key;
 	
+	private String notes;
+	
 	private Date createDate;
 	
 	private Date modifyDate;
@@ -128,6 +130,12 @@ public class OwnerObj extends Obj {
 	}
 	public void setWorks(List<WorkObj> works) {
 		this.works = works;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	
