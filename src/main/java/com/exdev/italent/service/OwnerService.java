@@ -83,7 +83,7 @@ public class OwnerService extends BaseService {
 		return objs;
 	}
 	
-	public void delete(int id) {
+	public void deleteOwner(int id) {
 		Owner owner = findOwner(id);
 		em.getTransaction().begin();
 		em.remove(owner);

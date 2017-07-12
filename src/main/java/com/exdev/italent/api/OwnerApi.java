@@ -68,7 +68,7 @@ public class OwnerApi {
 	@Path("/{id:[0-9][0-9]*}")
 	public Response deleteById(@PathParam("id") final int id) {
 		OwnerService service = new OwnerService();
-		service.delete(id);
+		service.deleteOwner(id);
 		service.close();
 		return Response.noContent().build();
 	}
