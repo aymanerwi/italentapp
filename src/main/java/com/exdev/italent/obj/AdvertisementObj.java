@@ -15,7 +15,7 @@ public class AdvertisementObj extends Obj {
 
 	private Date expireDate;
 
-	private String key;
+	private String uid;
 
 	private double latitude;
 
@@ -31,7 +31,7 @@ public class AdvertisementObj extends Obj {
 
 	private String unit;
 
-	private Owner owner;
+	private OwnerObj owner;
 
 	private List<CommentObj> comments;
 	
@@ -71,13 +71,6 @@ public class AdvertisementObj extends Obj {
 		this.expireDate = expireDate;
 	}
 
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
 
 	public double getLatitude() {
 		return latitude;
@@ -135,11 +128,11 @@ public class AdvertisementObj extends Obj {
 		this.unit = unit;
 	}
 
-	public Owner getOwner() {
+	public OwnerObj getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Owner owner) {
+	public void setOwner(OwnerObj owner) {
 		this.owner = owner;
 	}
 
@@ -149,6 +142,14 @@ public class AdvertisementObj extends Obj {
 
 	public void setComments(List<CommentObj> comments) {
 		this.comments = comments;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	
 	

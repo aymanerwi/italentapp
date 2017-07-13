@@ -19,7 +19,7 @@ public class OwnerObj extends Obj {
 
 	private String twitter;
 	
-	private String key;
+	private String uid;
 	
 	private String notes;
 	
@@ -89,12 +89,7 @@ public class OwnerObj extends Obj {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
-	}
+	
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -130,6 +125,12 @@ public class OwnerObj extends Obj {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	

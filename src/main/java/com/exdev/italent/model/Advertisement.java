@@ -94,7 +94,7 @@ public class Advertisement implements Serializable {
 		this.description = description;
 	}
 
-	public Object getDisabled() {
+	public boolean getDisabled() {
 		return this.disabled;
 	}
 

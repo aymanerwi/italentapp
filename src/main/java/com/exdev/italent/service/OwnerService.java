@@ -22,20 +22,6 @@ public class OwnerService extends BaseService {
 		owner.setTwitter(obj.getTwitter());
 	}
 
-	private void fillOwnerObj(Owner owner, OwnerObj obj) {
-		obj.setId(owner.getId());
-		obj.setCertified(owner.getCertified());
-		obj.setCreateDate(owner.getCreateDate());
-		obj.setModifyDate(owner.getModifyDate());
-		obj.setEmail(owner.getEmail());
-		obj.setInstagram(owner.getInstagram());
-		obj.setKey(owner.getUid());
-		obj.setName(owner.getName());
-		obj.setNotes(owner.getNotes());
-		obj.setPhone(owner.getPhone());
-		obj.setTwitter(owner.getTwitter());
-	}
-
 	private Owner findOwner(int id) {
 		Owner owner = em.find(Owner.class, id);
 		return owner;
@@ -67,7 +53,6 @@ public class OwnerService extends BaseService {
 		Owner owner = findOwner(id);
 		OwnerObj obj = new OwnerObj();
 		fillOwnerObj(owner, obj);
-
 		return obj;
 	}
 
