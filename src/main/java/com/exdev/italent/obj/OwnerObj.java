@@ -3,12 +3,6 @@ package com.exdev.italent.obj;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.OneToMany;
-
-import com.exdev.italent.model.Advertisement;
-import com.exdev.italent.model.Licence;
-import com.exdev.italent.model.Work;
-
 
 public class OwnerObj extends Obj {
 

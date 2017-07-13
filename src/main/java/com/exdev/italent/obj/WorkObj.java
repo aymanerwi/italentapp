@@ -3,15 +3,6 @@ package com.exdev.italent.obj;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.exdev.italent.model.Owner;
-import com.exdev.italent.model.WorkDetails;
-
 public class WorkObj extends Obj{
 
 	private Date createDate;
