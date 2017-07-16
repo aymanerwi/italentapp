@@ -13,9 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.exdev.italent.obj.LicenceObj;
+import com.exdev.italent.service.LicenceService;
+import com.exdev.italent.service.OwnerService;
 
 @RequestScoped
 @Path("/licence")
@@ -25,18 +28,19 @@ public class LicenceApi {
 
 	@POST
 	public Response create(final LicenceObj licenceobj) {
-		//TODO: process the given licenceobj 
-		//you may want to use the following return statement, assuming that LicenceObj#getId() or a similar method 
-		//would provide the identifier to retrieve the created LicenceObj resource:
-		//return Response.created(UriBuilder.fromResource(LicenceApi.class).path(String.valueOf(licenceobj.getId())).build()).build();
-		return Response.created(null).build();
+		LicenceService service = new LicenceService();
+		service.createLicence(licenceobj);
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(licenceobj.getId())).build())
+				.build();
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public Response findById(@PathParam("id") final Long id) {
-		//TODO: retrieve the licenceobj 
-		LicenceObj licenceobj = null;
+	public Response findById(@PathParam("id") final int id) {
+		LicenceService service = new LicenceService();
+		LicenceObj licenceobj = service.getLicence(id);
+		service.close();
 		if (licenceobj == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -44,24 +48,31 @@ public class LicenceApi {
 	}
 
 	@GET
-	public List<LicenceObj> listAll(@QueryParam("start") final Integer startPosition,
-			@QueryParam("max") final Integer maxResult) {
-		//TODO: retrieve the licenceobjs 
-		final List<LicenceObj> licenceobjs = null;
+	@Path("/owner/{ownerid}")
+	public List<LicenceObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
+		
+		LicenceService service = new LicenceService();
+		final List<LicenceObj> licenceobjs = service.listLicences(ownerid, startPosition, maxResult);
+		service.close();
 		return licenceobjs;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") Long id, final LicenceObj licenceobj) {
-		//TODO: process the given licenceobj 
+	public Response update(@PathParam("id") int id, final LicenceObj licenceobj) {
+		LicenceService service = new LicenceService();
+		service.updateLicence(id, licenceobj);
+		service.close();
 		return Response.noContent().build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final Long id) {
-		//TODO: process the licenceobj matching by the given id 
+	public Response deleteById(@PathParam("id") final int id) {
+		LicenceService service = new LicenceService();
+		service.deleteLicence(id);
+		service.close();
 		return Response.noContent().build();
 	}
 

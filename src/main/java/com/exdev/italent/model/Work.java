@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-@NamedQuery(name="Work.findAll", query="SELECT w FROM Work w")
+@NamedQuery(name="Work.findAll", query="SELECT w FROM Work w where w.owner.id = :ownerid")
 public class Work implements Serializable {
 	private static final long serialVersionUID = 1L;
 

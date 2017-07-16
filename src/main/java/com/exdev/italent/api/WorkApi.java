@@ -13,9 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.exdev.italent.obj.WorkObj;
+import com.exdev.italent.service.OwnerService;
+import com.exdev.italent.service.WorkService;
 
 @RequestScoped
 @Path("/work")
@@ -26,18 +29,19 @@ public class WorkApi {
 	@POST
 	public Response create(final WorkObj workobj) {
 		
-		//TODO: process the given workobj 
-		//you may want to use the following return statement, assuming that WorkObj#getId() or a similar method 
-		//would provide the identifier to retrieve the created WorkObj resource:
-		//return Response.created(UriBuilder.fromResource(WorkApi.class).path(String.valueOf(workobj.getId())).build()).build();
-		return Response.created(null).build();
+		WorkService service = new WorkService();
+		service.createWork(workobj);
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(workobj.getId())).build())
+				.build();
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public Response findById(@PathParam("id") final Long id) {
-		//TODO: retrieve the workobj 
-		WorkObj workobj = null;
+	public Response findById(@PathParam("id") final int id) {
+		WorkService service = new WorkService(); 
+		WorkObj workobj = service.getWork(id);
+		service.close();
 		if (workobj == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -45,24 +49,30 @@ public class WorkApi {
 	}
 
 	@GET
-	public List<WorkObj> listAll(@QueryParam("start") final Integer startPosition,
+	@Path("/owner/{ownerid}")
+	public List<WorkObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final Integer startPosition,
 			@QueryParam("max") final Integer maxResult) {
-		//TODO: retrieve the workobjs 
-		final List<WorkObj> workobjs = null;
+		WorkService service = new WorkService();
+		final List<WorkObj> workobjs = service.listWorks(ownerid, startPosition, maxResult);
+		service.close();
 		return workobjs;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") Long id, final WorkObj workobj) {
-		//TODO: process the given workobj 
+	public Response update(@PathParam("id") int id, final WorkObj workobj) {
+		WorkService service = new WorkService();
+		service.updateWork(id, workobj);
+		service.close();
 		return Response.noContent().build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final Long id) {
-		//TODO: process the workobj matching by the given id 
+	public Response deleteById(@PathParam("id") final int id) {
+		WorkService service = new WorkService();
+		service.deleteWork(id);
+		service.close();
 		return Response.noContent().build();
 	}
 

@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="work_details")
-@NamedQuery(name="WorkDetails.findAll", query="SELECT w FROM WorkDetails w")
+@NamedQuery(name="WorkDetails.findAll", query="SELECT w FROM WorkDetails w where w.work.id = :workid")
 public class WorkDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 

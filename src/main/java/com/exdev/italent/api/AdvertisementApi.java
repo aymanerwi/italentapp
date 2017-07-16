@@ -13,9 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.exdev.italent.obj.AdvertisementObj;
+import com.exdev.italent.service.AdvertisementService;
+import com.exdev.italent.service.OwnerService;
 
 @RequestScoped
 @Path("/ad")
@@ -25,43 +28,57 @@ public class AdvertisementApi {
 
 	@POST
 	public Response create(final AdvertisementObj advertisementobj) {
-		//TODO: process the given advertisementobj 
-		//you may want to use the following return statement, assuming that AdvertisementObj#getId() or a similar method 
-		//would provide the identifier to retrieve the created AdvertisementObj resource:
-		//return Response.created(UriBuilder.fromResource(AdvertisementApi.class).path(String.valueOf(advertisementobj.getId())).build()).build();
-		return Response.created(null).build();
+		AdvertisementService service = new AdvertisementService();
+		service.createAdvertisement(advertisementobj);
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(advertisementobj.getId())).build())
+				.build();
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public Response findById(@PathParam("id") final Long id) {
-		//TODO: retrieve the advertisementobj 
-		AdvertisementObj advertisementobj = null;
+	public Response findById(@PathParam("id") final int id) {
+		AdvertisementService service = new AdvertisementService();
+		AdvertisementObj advertisementobj = service.getAdvertisement(id);
+		service.close();
 		if (advertisementobj == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
+		
 		return Response.ok(advertisementobj).build();
+		
 	}
 
 	@GET
-	public List<AdvertisementObj> listAll(@QueryParam("start") final Integer startPosition,
-			@QueryParam("max") final Integer maxResult) {
-		//TODO: retrieve the advertisementobjs 
-		final List<AdvertisementObj> advertisementobjs = null;
+	public List<AdvertisementObj> listAll(@QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
+		AdvertisementService service = new AdvertisementService();
+		final List<AdvertisementObj> advertisementobjs = service.listAdvertisements(startPosition, maxResult);
+		return advertisementobjs;
+	}
+	
+	@GET
+	@Path("/owner/{ownerid:[0-9][0-9]*}")
+	public List<AdvertisementObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
+		AdvertisementService service = new AdvertisementService();
+		final List<AdvertisementObj> advertisementobjs = service.listAdvertisements(ownerid,startPosition, maxResult);
 		return advertisementobjs;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") Long id, final AdvertisementObj advertisementobj) {
-		//TODO: process the given advertisementobj 
+	public Response update(@PathParam("id") int id, final AdvertisementObj advertisementobj) {
+		AdvertisementService service = new AdvertisementService();
+		service.updateAdvertisement(id, advertisementobj);
 		return Response.noContent().build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final Long id) {
-		//TODO: process the advertisementobj matching by the given id 
+	public Response deleteById(@PathParam("id") final int id) {
+		AdvertisementService service = new AdvertisementService();
+		service.deleteAdvertisement(id);
 		return Response.noContent().build();
 	}
 

@@ -13,9 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.exdev.italent.obj.CommentObj;
+import com.exdev.italent.service.CommentService;
+import com.exdev.italent.service.OwnerService;
 
 @RequestScoped
 @Path("/comment")
@@ -25,18 +28,20 @@ public class CommentApi {
 
 	@POST
 	public Response create(final CommentObj commentobj) {
-		//TODO: process the given commentobj 
-		//you may want to use the following return statement, assuming that CommentObj#getId() or a similar method 
-		//would provide the identifier to retrieve the created CommentObj resource:
-		//return Response.created(UriBuilder.fromResource(CommentApi.class).path(String.valueOf(commentobj.getId())).build()).build();
-		return Response.created(null).build();
+		CommentService service = new CommentService();
+		service.createComment(commentobj);
+		service.close();
+		return Response
+				.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(commentobj.getId())).build())
+				.build();
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public Response findById(@PathParam("id") final Long id) {
-		//TODO: retrieve the commentobj 
-		CommentObj commentobj = null;
+	public Response findById(@PathParam("id") final int id) {
+		CommentService service = new CommentService();
+		CommentObj commentobj = service.getComment(id);
+		service.close();
 		if (commentobj == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -44,24 +49,30 @@ public class CommentApi {
 	}
 
 	@GET
-	public List<CommentObj> listAll(@QueryParam("start") final Integer startPosition,
+	@Path("/ad/{adid}")
+	public List<CommentObj> listAll(@PathParam("adid") int adid, @QueryParam("start") final Integer startPosition,
 			@QueryParam("max") final Integer maxResult) {
-		//TODO: retrieve the commentobjs 
-		final List<CommentObj> commentobjs = null;
+		CommentService service = new CommentService();
+		final List<CommentObj> commentobjs = service.listComments(adid, startPosition, maxResult);
+		service.close();
 		return commentobjs;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") Long id, final CommentObj commentobj) {
-		//TODO: process the given commentobj 
+	public Response update(@PathParam("id") int id, final CommentObj commentobj) {
+		CommentService service = new CommentService();
+		service.updateComment(id, commentobj);
+		service.close();
 		return Response.noContent().build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final Long id) {
-		//TODO: process the commentobj matching by the given id 
+	public Response deleteById(@PathParam("id") final int id) {
+		CommentService service = new CommentService();
+		service.deleteComment(id);
+		service.close();
 		return Response.noContent().build();
 	}
 

@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
  * 
  */
 @Entity
-@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l")
+@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.owner.id = :ownerid")
 public class Licence implements Serializable {
 	private static final long serialVersionUID = 1L;
 

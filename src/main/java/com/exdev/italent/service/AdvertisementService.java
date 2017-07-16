@@ -23,6 +23,7 @@ public class AdvertisementService extends BaseService {
 		em.persist(ad);
 		em.getTransaction().commit();
 		
+		obj.setId(ad.getId());
 	}
 
 	private void fillAdvertisement(AdvertisementObj obj, Advertisement ad) {
@@ -61,27 +62,19 @@ public class AdvertisementService extends BaseService {
 		return obj;
 	}
 
-	private void fillAdvertisementObj(Advertisement ad, AdvertisementObj obj) {
-		obj.setId(ad.getId());
-		obj.setCreateDate(ad.getCreateDate());
-		obj.setModifyDate(obj.getModifyDate());
-		obj.setExpireDate(ad.getExpireDate());
-		obj.setDescription(ad.getDescription());
-		obj.setDisabled(ad.getDisabled());
-		obj.setLatitude(ad.getLatitude());
-		obj.setLongitude(ad.getLongitude());
-		obj.setNotes(ad.getNotes());
-		OwnerObj ownerObj = new OwnerObj();
-		fillOwnerObj(ad.getOwner(), ownerObj);
-		obj.setOwner(ownerObj);
-		obj.setPrice(ad.getPrice());
-		obj.setUid(ad.getUid());
-		obj.setUnit(ad.getUnit());
-		obj.setTitle(ad.getTitle());
-	}
-	
 	public List<AdvertisementObj> listAdvertisements(int start, int max) {
 		List<Advertisement> ads = em.createNamedQuery("Advertisement.findAll").setFirstResult(start).setMaxResults(max).getResultList();
+		List<AdvertisementObj> objs = new ArrayList<AdvertisementObj>(ads.size());
+		for(Advertisement ad : ads) {
+			AdvertisementObj obj = new AdvertisementObj();
+			fillAdvertisementObj(ad, obj);
+			objs.add(obj);
+		}
+		return objs;
+	}
+	
+	public List<AdvertisementObj> listAdvertisements(int ownerid,int start, int max) {
+		List<Advertisement> ads = em.createNamedQuery("Advertisement.findByOwner").setParameter("ownerid", ownerid).setFirstResult(start).setMaxResults(max).getResultList();
 		List<AdvertisementObj> objs = new ArrayList<AdvertisementObj>(ads.size());
 		for(Advertisement ad : ads) {
 			AdvertisementObj obj = new AdvertisementObj();

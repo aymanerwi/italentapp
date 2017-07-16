@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.NamedQueries;
 
 
 /**
@@ -21,7 +22,10 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-@NamedQuery(name="Advertisement.findAll", query="SELECT a FROM Advertisement a")
+@NamedQueries({ 
+	@NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"), 
+	@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid") 
+})
 public class Advertisement implements Serializable {
 	private static final long serialVersionUID = 1L;
 
