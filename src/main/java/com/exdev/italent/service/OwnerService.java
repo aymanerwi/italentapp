@@ -11,7 +11,6 @@ import com.exdev.italent.obj.OwnerObj;
 public class OwnerService extends BaseService {
 
 	private void fillOwner(OwnerObj obj, Owner owner) {
-		owner.setId(obj.getId());
 		owner.setName(obj.getName());
 		owner.setCertified(obj.getCertified());
 		owner.setEmail(owner.getEmail());
