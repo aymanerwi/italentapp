@@ -21,7 +21,7 @@ import com.exdev.italent.service.LicenceService;
 import com.exdev.italent.service.OwnerService;
 
 @RequestScoped
-@Path("/licence")
+@Path("/lic")
 @Produces("application/json")
 @Consumes("application/json")
 public class LicenceApi {
@@ -32,7 +32,7 @@ public class LicenceApi {
 		service.createLicence(licenceobj);
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(licenceobj.getId())).build())
-				.build();
+				.entity(licenceobj).build();
 	}
 
 	@GET

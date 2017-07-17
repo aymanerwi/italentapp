@@ -31,7 +31,7 @@ public class OwnerApi {
 		service.createOwner(ownerobj);
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(ownerobj.getId())).build())
-				.build();
+				.entity(ownerobj).build();
 	}
 
 	@GET

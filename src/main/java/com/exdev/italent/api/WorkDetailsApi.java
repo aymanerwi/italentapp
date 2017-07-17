@@ -32,7 +32,7 @@ public class WorkDetailsApi {
 		service.createWorkDetails(workdetailsobj);
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(workdetailsobj.getId())).build())
-				.build();
+				.entity(workdetailsobj).build();
 	}
 
 	@GET

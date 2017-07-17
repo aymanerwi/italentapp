@@ -33,7 +33,7 @@ public class WorkApi {
 		service.createWork(workobj);
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(workobj.getId())).build())
-				.build();
+				.entity(workobj).build();
 	}
 
 	@GET

@@ -3,6 +3,8 @@ package com.exdev.italent.service;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.exdev.italent.model.Advertisement;
 import com.exdev.italent.model.Owner;
 import com.exdev.italent.model.Work;
@@ -66,5 +68,17 @@ public class BaseService {
 		obj.setUid(ad.getUid());
 		obj.setUnit(ad.getUnit());
 		obj.setTitle(ad.getTitle());
+	}
+	
+	public byte[] decodeString(String str) {
+		if (str == null)
+			return null;
+		return Base64.decodeBase64(str);
+	}
+
+	protected String encodeBytes(byte[] data) {
+		if (data == null)
+			return null;
+		return Base64.encodeBase64String(data);
 	}
 }

@@ -32,7 +32,7 @@ public class AdvertisementApi {
 		service.createAdvertisement(advertisementobj);
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(advertisementobj.getId())).build())
-				.build();
+				.entity(advertisementobj).build();
 	}
 
 	@GET

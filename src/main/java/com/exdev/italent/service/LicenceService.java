@@ -23,7 +23,7 @@ public class LicenceService extends BaseService {
 
 	private void fillLicence(LicenceObj obj, Licence licence) {
 		licence.setId(obj.getId());
-		licence.setImage(obj.getImage().getBytes());
+		licence.setImage(decodeString(obj.getImage()));
 		licence.setNotes(obj.getNotes());
 		Owner owner = em.find(Owner.class, obj.getOwner().getId());
 		licence.setOwner(owner);
@@ -48,7 +48,7 @@ public class LicenceService extends BaseService {
 
 	private void fillLicenceObj(Licence licence, LicenceObj obj) {
 		obj.setId(licence.getId());
-		obj.setImage(new String(licence.getImage()));
+		obj.setImage(encodeBytes(licence.getImage()));
 		obj.setNotes(licence.getNotes());
 		OwnerObj ownerObj = new OwnerObj();
 		fillOwnerObj(licence.getOwner(), ownerObj);

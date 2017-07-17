@@ -33,7 +33,7 @@ public class CommentApi {
 		service.close();
 		return Response
 				.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(commentobj.getId())).build())
-				.build();
+				.entity(commentobj).build();
 	}
 
 	@GET
