@@ -49,6 +49,12 @@ public class User implements Serializable{
 	
 	private String token;
 	private String uuid;
+	
+	private String code;
+	
+	public User() {
+	
+	}
 	public int getId() {
 		return id;
 	}
