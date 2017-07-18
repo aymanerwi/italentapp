@@ -9,6 +9,7 @@
 		<class>com.exdev.italent.model.Owner</class>
 		<class>com.exdev.italent.model.Work</class>
 		<class>com.exdev.italent.model.WorkDetails</class>
+		<class>com.exdev.italent.model.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />
