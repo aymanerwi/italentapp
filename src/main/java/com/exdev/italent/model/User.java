@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({ @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
 	@NamedQuery(name = "User.findByToken", query = "SELECT u FROM User u where u.token = :token"),
 	@NamedQuery(name = "User.findByMobileNo", query = "SELECT u FROM User u where u.mobileNo = :mobileNo"),
-	@NamedQuery(name = "User.findByUUID", query = "SELECT u FROM User u where u.uuid = :uuid")})
+	@NamedQuery(name = "User.findByUID", query = "SELECT u FROM User u where u.uid = :uid")})
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class User implements Serializable{
 	private Date logoutDate;
 	
 	private String token;
-	private String uuid;
+	private String uid;
 	
 	private String code;
 	
@@ -109,10 +109,16 @@ public class User implements Serializable{
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public String getUuid() {
-		return uuid;
+	public String getUid() {
+		return uid;
 	}
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 }
