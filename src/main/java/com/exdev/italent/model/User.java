@@ -52,6 +52,14 @@ public class User implements Serializable{
 	
 	private String code;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="modify_date")
+	private Date modifyDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_date")
+	private Date createDate;
+	
 	public User() {
 	
 	}
@@ -120,5 +128,17 @@ public class User implements Serializable{
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }

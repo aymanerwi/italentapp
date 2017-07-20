@@ -2,6 +2,10 @@ package com.exdev.italent.obj;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class UserObj extends Obj {
 
 	private String name;
@@ -10,9 +14,13 @@ public class UserObj extends Obj {
 	private Date logoutDate;
 	private String token;
 	private String uid;
-	private String code;
 	private boolean disabled;
 	private String notes;
+	private String smsCode;
+	private Date modifyDate;
+	private Date createDate;
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -49,12 +57,6 @@ public class UserObj extends Obj {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
 	public boolean isDisabled() {
 		return disabled;
 	}
@@ -66,6 +68,24 @@ public class UserObj extends Obj {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public String getSmsCode() {
+		return smsCode;
+	}
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
+	}
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 	
