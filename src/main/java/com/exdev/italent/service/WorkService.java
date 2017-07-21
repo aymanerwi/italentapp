@@ -25,7 +25,6 @@ public class WorkService extends BaseService {
 	}
 
 	private void fillWork(WorkObj obj, Work work) {
-		work.setId(obj.getId());
 		work.setNotes(obj.getNotes());
 		work.setTitle(obj.getTitle());
 		work.setLink(obj.getLink());
@@ -49,7 +48,7 @@ public class WorkService extends BaseService {
 
 	public WorkObj getWork(int id) {
 		Work work = em.find(Work.class, id);
-
+		if(work == null) return null;
 		WorkObj obj = new WorkObj();
 
 		fillWorkObj(work, obj);

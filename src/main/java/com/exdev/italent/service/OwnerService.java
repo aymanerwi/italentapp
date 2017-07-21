@@ -13,7 +13,7 @@ public class OwnerService extends BaseService {
 	private void fillOwner(OwnerObj obj, Owner owner) {
 		owner.setName(obj.getName());
 		owner.setCertified(obj.getCertified());
-		owner.setEmail(owner.getEmail());
+		owner.setEmail(obj.getEmail());
 		owner.setInstagram(obj.getInstagram());
 		owner.setNotes(obj.getNotes());
 		owner.setNotes(obj.getNotes());
@@ -50,6 +50,7 @@ public class OwnerService extends BaseService {
 
 	public OwnerObj getOwner(int id) {
 		Owner owner = findOwner(id);
+		if(owner == null) return null;
 		OwnerObj obj = new OwnerObj();
 		fillOwnerObj(owner, obj);
 		return obj;

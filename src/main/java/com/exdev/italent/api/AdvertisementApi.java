@@ -27,9 +27,10 @@ import com.exdev.italent.service.OwnerService;
 public class AdvertisementApi {
 
 	@POST
-	public Response create(final AdvertisementObj advertisementobj) {
+	public Response create(AdvertisementObj advertisementobj) {
 		AdvertisementService service = new AdvertisementService();
 		service.createAdvertisement(advertisementobj);
+		advertisementobj = service.getAdvertisement(advertisementobj.getId());
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(advertisementobj.getId())).build())
 				.entity(advertisementobj).build();
@@ -68,10 +69,12 @@ public class AdvertisementApi {
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") int id, final AdvertisementObj advertisementobj) {
+	public Response update(@PathParam("id") int id, AdvertisementObj advertisementobj) {
 		AdvertisementService service = new AdvertisementService();
 		service.updateAdvertisement(id, advertisementobj);
-		return Response.noContent().build();
+		advertisementobj = service.getAdvertisement(id);
+		service.close();
+		return Response.ok(advertisementobj).build();
 	}
 
 	@DELETE

@@ -27,10 +27,11 @@ import com.exdev.italent.service.WorkService;
 public class WorkApi {
 
 	@POST
-	public Response create(final WorkObj workobj) {
+	public Response create(WorkObj workobj) {
 		
 		WorkService service = new WorkService();
 		service.createWork(workobj);
+		workobj = service.getWork(workobj.getId());
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(workobj.getId())).build())
 				.entity(workobj).build();
@@ -50,8 +51,8 @@ public class WorkApi {
 
 	@GET
 	@Path("/owner/{ownerid}")
-	public List<WorkObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final Integer startPosition,
-			@QueryParam("max") final Integer maxResult) {
+	public List<WorkObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
 		WorkService service = new WorkService();
 		final List<WorkObj> workobjs = service.listWorks(ownerid, startPosition, maxResult);
 		service.close();
@@ -60,11 +61,12 @@ public class WorkApi {
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") int id, final WorkObj workobj) {
+	public Response update(@PathParam("id") int id, WorkObj workobj) {
 		WorkService service = new WorkService();
 		service.updateWork(id, workobj);
+		workobj = service.getWork(id);
 		service.close();
-		return Response.noContent().build();
+		return Response.ok().entity(workobj).build();
 	}
 
 	@DELETE

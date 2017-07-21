@@ -27,9 +27,10 @@ import com.exdev.italent.service.OwnerService;
 public class CommentApi {
 
 	@POST
-	public Response create(final CommentObj commentobj) {
+	public Response create(CommentObj commentobj) {
 		CommentService service = new CommentService();
 		service.createComment(commentobj);
+		commentobj = service.getComment(commentobj.getId());
 		service.close();
 		return Response
 				.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(commentobj.getId())).build())
@@ -50,8 +51,8 @@ public class CommentApi {
 
 	@GET
 	@Path("/ad/{adid}")
-	public List<CommentObj> listAll(@PathParam("adid") int adid, @QueryParam("start") final Integer startPosition,
-			@QueryParam("max") final Integer maxResult) {
+	public List<CommentObj> listAll(@PathParam("adid") int adid, @QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
 		CommentService service = new CommentService();
 		final List<CommentObj> commentobjs = service.listComments(adid, startPosition, maxResult);
 		service.close();
@@ -60,11 +61,12 @@ public class CommentApi {
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") int id, final CommentObj commentobj) {
+	public Response update(@PathParam("id") int id, CommentObj commentobj) {
 		CommentService service = new CommentService();
 		service.updateComment(id, commentobj);
+		commentobj = service.getComment(id);
 		service.close();
-		return Response.noContent().build();
+		return Response.ok(commentobj).build();
 	}
 
 	@DELETE

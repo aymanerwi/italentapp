@@ -23,7 +23,6 @@ public class WorkDetailsService extends BaseService {
 	}
 
 	private void fillWorkDetails(WorkDetailsObj obj, WorkDetails details) {
-		details.setId(obj.getId());
 		details.setImage(decodeString(obj.getImage()));
 		details.setLink(obj.getLink());
 		details.setNotes(obj.getNotes());
@@ -45,7 +44,7 @@ public class WorkDetailsService extends BaseService {
 
 	public WorkDetailsObj getWorkDetails(int id) {
 		WorkDetails details = em.find(WorkDetails.class, id);
-		
+		if(details == null) return null;
 		WorkDetailsObj obj = new WorkDetailsObj();
 		fillWorkDetailsObj(details, obj);
 		return obj;

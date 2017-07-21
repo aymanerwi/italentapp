@@ -27,9 +27,10 @@ import com.exdev.italent.service.OwnerService;
 public class LicenceApi {
 
 	@POST
-	public Response create(final LicenceObj licenceobj) {
+	public Response create(LicenceObj licenceobj) {
 		LicenceService service = new LicenceService();
 		service.createLicence(licenceobj);
+		licenceobj = service.getLicence(licenceobj.getId());
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(licenceobj.getId())).build())
 				.entity(licenceobj).build();
@@ -60,11 +61,12 @@ public class LicenceApi {
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") int id, final LicenceObj licenceobj) {
+	public Response update(@PathParam("id") int id, LicenceObj licenceobj) {
 		LicenceService service = new LicenceService();
 		service.updateLicence(id, licenceobj);
+		licenceobj = service.getLicence(id);
 		service.close();
-		return Response.noContent().build();
+		return Response.ok(licenceobj).build();
 	}
 
 	@DELETE

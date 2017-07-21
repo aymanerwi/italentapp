@@ -26,9 +26,10 @@ import com.exdev.italent.service.OwnerService;
 public class OwnerApi {
 
 	@POST
-	public Response create(final OwnerObj ownerobj) {
+	public Response create(OwnerObj ownerobj) {
 		OwnerService service = new OwnerService();
 		service.createOwner(ownerobj);
+		ownerobj = service.getOwner(ownerobj.getId());
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(ownerobj.getId())).build())
 				.entity(ownerobj).build();
@@ -57,11 +58,12 @@ public class OwnerApi {
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") int id, final OwnerObj ownerobj) {
+	public Response update(@PathParam("id") int id, OwnerObj ownerobj) {
 		OwnerService service = new OwnerService();
 		service.updateOwner(id, ownerobj);
+		ownerobj = service.getOwner(ownerobj.getId());
 		service.close();
-		return Response.noContent().build();
+		return Response.ok(ownerobj).build();
 	}
 
 	@DELETE

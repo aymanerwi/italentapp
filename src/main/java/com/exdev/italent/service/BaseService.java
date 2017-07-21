@@ -46,7 +46,7 @@ public class BaseService {
 		obj.setModifyDate(work.getModifyDate());
 		obj.setNotes(work.getNotes());
 		OwnerObj ownerObj = new OwnerObj();
-		fillOwnerObj(work.getOwner(), new OwnerObj());
+		fillOwnerObj(work.getOwner(), ownerObj);
 		obj.setOwner(ownerObj);
 		obj.setTitle(work.getTitle());
 	}

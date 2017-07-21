@@ -13,9 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import com.exdev.italent.obj.UserObj;
+import com.exdev.italent.service.UserService;
+import com.exdev.italent.service.WorkService;
 
 @RequestScoped
 @Path("/user")
@@ -24,19 +27,30 @@ import com.exdev.italent.obj.UserObj;
 public class UserApi {
 
 	@POST
-	public Response create(final UserObj userobj) {
-		//TODO: process the given loginobj 
-		//you may want to use the following return statement, assuming that UserObj#getId() or a similar method 
-		//would provide the identifier to retrieve the created UserObj resource:
-		//return Response.created(UriBuilder.fromResource(UserApi.class).path(String.valueOf(loginobj.getId())).build()).build();
-		return Response.created(null).build();
+	public Response create(UserObj userobj) {
+		UserService service = new UserService();
+		service.registerUser(userobj);
+		userobj = service.getUser(userobj.getId());
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(userobj.getId())).build())
+				.entity(userobj).build();
+	}
+	
+	@PUT
+	public Response confirm(UserObj userobj) {
+		UserService service = new UserService();
+		userobj = service.confirmSms(userobj);
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(userobj.getId())).build())
+				.entity(userobj).build();
 	}
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	public Response findById(@PathParam("id") final Long id) {
-		//TODO: retrieve the loginobj 
-		UserObj loginobj = null;
+	public Response findById(@PathParam("id") final int id) {
+		UserService service = new UserService();
+		UserObj loginobj = service.getUser(id);
+		service.close();
 		if (loginobj == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -44,24 +58,30 @@ public class UserApi {
 	}
 
 	@GET
-	public List<UserObj> listAll(@QueryParam("start") final Integer startPosition,
-			@QueryParam("max") final Integer maxResult) {
-		//TODO: retrieve the loginobjs 
-		final List<UserObj> loginobjs = null;
+	public List<UserObj> listAll(@QueryParam("start") final int startPosition,
+			@QueryParam("max") final int maxResult) {
+		UserService service = new UserService(); 
+		final List<UserObj> loginobjs = service.listUsers(startPosition, maxResult);
+		service.close();
 		return loginobjs;
 	}
 
 	@PUT
 	@Path("/{id:[0-9][0-9]*}")
-	public Response update(@PathParam("id") Long id, final UserObj userobj) {
-		//TODO: process the given loginobj 
-		return Response.noContent().build();
+	public Response update(@PathParam("id") int id, UserObj userobj) {
+		UserService service = new UserService();
+		service.updateUser(id,userobj);
+		userobj = service.getUser(id);
+		service.close();
+		return Response.ok(userobj).build();
 	}
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	public Response deleteById(@PathParam("id") final Long id) {
-		//TODO: process the loginobj matching by the given id 
+	public Response deleteById(@PathParam("id") final int id) {
+		UserService service = new UserService();
+		service.deleteUser(id);
+		service.close();
 		return Response.noContent().build();
 	}
 

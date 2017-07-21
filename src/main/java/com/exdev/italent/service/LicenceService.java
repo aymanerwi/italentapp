@@ -39,7 +39,7 @@ public class LicenceService extends BaseService {
 
 	public LicenceObj getLicence(int id) {
 		Licence licence = em.find(Licence.class, id);
-		
+		if(licence == null) return null;
 		LicenceObj obj = new LicenceObj();
 		fillLicenceObj(licence, obj);
 		

@@ -33,7 +33,6 @@ public class CommentService extends BaseService {
 		comment.setComments(obj.getComments());
 		comment.setName(obj.getName());
 		comment.setDisabled(obj.isDisabled());
-		comment.setId(obj.getId());
 		comment.setRate(obj.getRate());
 		Advertisement ad = em.find(Advertisement.class, obj.getAdvertisement().getId());
 		comment.setAdvertisement(ad);
@@ -41,6 +40,7 @@ public class CommentService extends BaseService {
 
 	public void updateComment(int id, CommentObj obj) {
 		Comment comment = em.find(Comment.class, id);
+		if(comment == null) return;
 		fillComment(obj, comment);
 
 		em.getTransaction().begin();
@@ -50,7 +50,7 @@ public class CommentService extends BaseService {
 
 	public CommentObj getComment(int id) {
 		Comment comment = em.find(Comment.class, id);
-		
+		if(comment == null) return null;
 		CommentObj obj = new CommentObj();
 		fillCommentObj(comment, obj);
 		
@@ -63,6 +63,7 @@ public class CommentService extends BaseService {
 		obj.setCreateDate(comment.getCreateDate());
 		obj.setDisabled(comment.getDisabled());
 		obj.setName(comment.getName());
+		obj.setComments(comment.getComments());
 		
 		AdvertisementObj advertisementObj = new AdvertisementObj();
 		fillAdvertisementObj(comment.getAdvertisement(), advertisementObj);

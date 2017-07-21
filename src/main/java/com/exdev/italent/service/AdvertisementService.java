@@ -3,6 +3,7 @@ package com.exdev.italent.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.exdev.italent.model.Advertisement;
 import com.exdev.italent.model.Owner;
@@ -18,7 +19,7 @@ public class AdvertisementService extends BaseService {
 		ad.setCreateDate(new Date());
 		
 		fillAdvertisement(obj, ad);
-		
+		ad.setUid(UUID.randomUUID().toString());
 		em.getTransaction().begin();
 		em.persist(ad);
 		em.getTransaction().commit();
@@ -31,12 +32,10 @@ public class AdvertisementService extends BaseService {
 		Owner owner = em.find(Owner.class, ownerObj.getId());
 		ad.setOwner(owner);
 		ad.setDescription(obj.getDescription());
-		ad.setUid(obj.getUid());
 		ad.setExpireDate(obj.getExpireDate());
 		ad.setDisabled(obj.isDisabled());
 		ad.setLatitude(obj.getLatitude());
 		ad.setLongitude(obj.getLongitude());
-		ad.setId(obj.getId());
 		ad.setTitle(obj.getTitle());
 		ad.setNotes(obj.getNotes());
 		ad.setPrice(obj.getPrice());
@@ -56,7 +55,7 @@ public class AdvertisementService extends BaseService {
 	
 	public AdvertisementObj getAdvertisement(int id) {
 		Advertisement ad = em.find(Advertisement.class, id);
-		
+		if(ad == null) return null;
 		AdvertisementObj obj = new AdvertisementObj();
 		fillAdvertisementObj(ad, obj);
 		return obj;
