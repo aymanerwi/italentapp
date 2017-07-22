@@ -13,11 +13,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
 
 import com.exdev.italent.obj.WorkObj;
-import com.exdev.italent.service.OwnerService;
 import com.exdev.italent.service.WorkService;
 
 @RequestScoped

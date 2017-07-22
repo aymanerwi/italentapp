@@ -61,7 +61,7 @@ public class OwnerApi {
 	public Response update(@PathParam("id") int id, OwnerObj ownerobj) {
 		OwnerService service = new OwnerService();
 		service.updateOwner(id, ownerobj);
-		ownerobj = service.getOwner(ownerobj.getId());
+		ownerobj = service.getOwner(id);
 		service.close();
 		return Response.ok(ownerobj).build();
 	}

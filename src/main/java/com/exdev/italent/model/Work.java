@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,6 +22,7 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
+@Table(name="work")
 @NamedQuery(name="Work.findAll", query="SELECT w FROM Work w where w.owner.id = :ownerid")
 public class Work implements Serializable {
 	private static final long serialVersionUID = 1L;

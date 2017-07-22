@@ -1,7 +1,6 @@
 package com.exdev.italent.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exdev.italent.model.Licence;
@@ -22,7 +21,6 @@ public class LicenceService extends BaseService {
 	}
 
 	private void fillLicence(LicenceObj obj, Licence licence) {
-		licence.setId(obj.getId());
 		licence.setImage(decodeString(obj.getImage()));
 		licence.setNotes(obj.getNotes());
 		Owner owner = em.find(Owner.class, obj.getOwner().getId());

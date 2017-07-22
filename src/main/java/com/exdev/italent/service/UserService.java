@@ -10,7 +10,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import com.exdev.italent.model.User;
 import com.exdev.italent.obj.UserObj;
-import com.exdev.italent.utils.Utils;
 
 public class UserService extends BaseService {
 

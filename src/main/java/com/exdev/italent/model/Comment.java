@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,6 +20,7 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
+@Table(name="comment")
 @NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c where c.advertisement.id = :adid")
 public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;

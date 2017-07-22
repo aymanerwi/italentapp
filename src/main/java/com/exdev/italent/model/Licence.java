@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.NamedQuery;
  * 
  */
 @Entity
+@Table(name="licence")
 @NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.owner.id = :ownerid")
 public class Licence implements Serializable {
 	private static final long serialVersionUID = 1L;

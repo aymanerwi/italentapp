@@ -10,11 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.NamedQueries;
 
 
 /**
@@ -22,6 +23,7 @@ import javax.persistence.NamedQueries;
  * 
  */
 @Entity
+@Table(name="advertisement")
 @NamedQueries({ 
 	@NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"), 
 	@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid") 

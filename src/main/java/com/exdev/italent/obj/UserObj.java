@@ -2,10 +2,6 @@ package com.exdev.italent.obj;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 public class UserObj extends Obj {
 
 	private String name;

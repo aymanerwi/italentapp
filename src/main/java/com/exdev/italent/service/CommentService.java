@@ -2,7 +2,6 @@ package com.exdev.italent.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import com.exdev.italent.model.Advertisement;
