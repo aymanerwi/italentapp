@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import com.exdev.italent.obj.CommentObj;
+import com.exdev.italent.service.BaseService;
 import com.exdev.italent.service.CommentService;
 
 @RequestScoped
@@ -52,7 +53,7 @@ public class CommentApi {
 	@Path("/ad/{adid}")
 	public List<CommentObj> listAll(@PathParam("adid") int adid, @QueryParam("start") final int startPosition,
 			@QueryParam("max") final int maxResult) {
-		CommentService service = new CommentService();
+		BaseService service = new CommentService();
 		final List<CommentObj> commentobjs = service.listComments(adid, startPosition, maxResult);
 		service.close();
 		return commentobjs;

@@ -14,6 +14,8 @@ public class AdvertisementObj extends Obj {
 	private Date expireDate;
 
 	private String uid;
+	
+	private String image;
 
 	private double latitude;
 
@@ -148,6 +150,14 @@ public class AdvertisementObj extends Obj {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

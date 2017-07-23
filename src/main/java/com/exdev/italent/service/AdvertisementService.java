@@ -9,6 +9,7 @@ import com.exdev.italent.model.Advertisement;
 import com.exdev.italent.model.Owner;
 import com.exdev.italent.obj.AdvertisementObj;
 import com.exdev.italent.obj.OwnerObj;
+import com.exdev.italent.obj.WorkObj;
 
 public class AdvertisementService extends BaseService {
 
@@ -19,6 +20,7 @@ public class AdvertisementService extends BaseService {
 		ad.setCreateDate(new Date());
 		
 		fillAdvertisement(obj, ad);
+		
 		ad.setUid(UUID.randomUUID().toString());
 		em.getTransaction().begin();
 		em.persist(ad);
@@ -31,6 +33,7 @@ public class AdvertisementService extends BaseService {
 		OwnerObj ownerObj = obj.getOwner();
 		Owner owner = em.find(Owner.class, ownerObj.getId());
 		ad.setOwner(owner);
+		ad.setImage(decodeString(obj.getImage()));
 		ad.setDescription(obj.getDescription());
 		ad.setExpireDate(obj.getExpireDate());
 		ad.setDisabled(obj.isDisabled());

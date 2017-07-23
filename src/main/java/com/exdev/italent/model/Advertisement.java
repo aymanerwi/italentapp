@@ -40,6 +40,8 @@ public class Advertisement implements Serializable {
 	private Date createDate;
 
 	private String description;
+	
+	private byte[] image;
 
 	private boolean disabled;
 
@@ -210,6 +212,14 @@ public class Advertisement implements Serializable {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 }

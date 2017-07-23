@@ -1,6 +1,5 @@
 package com.exdev.italent.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,14 +60,7 @@ public class WorkService extends BaseService {
 		List<Work> works = em.createNamedQuery("Work.findAll", Work.class).setParameter("ownerid", ownerid).setFirstResult(start).setMaxResults(max)
 				.getResultList();
 
-		List<WorkObj> objs = new ArrayList<WorkObj>(works.size());
-
-		for (Work work : works) {
-			WorkObj obj = new WorkObj();
-			fillWorkObj(work, obj);
-			objs.add(obj);
-
-		}
+		List<WorkObj> objs = toWorkObjsList(works);
 
 		return objs;
 	}
