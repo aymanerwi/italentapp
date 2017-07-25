@@ -15,25 +15,24 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the owner database table.
  * 
  */
 @Entity
-@Table(name="owner")
-@NamedQuery(name="Owner.findAll", query="SELECT o FROM Owner o")
+@Table(name = "owner")
+@NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o")
 public class Owner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private boolean certified;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_date")
+	@Column(name = "create_date")
 	private Date createDate;
 
 	private boolean disabled;
@@ -45,7 +44,7 @@ public class Owner implements Serializable {
 	private String uid;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="modify_date")
+	@Column(name = "modify_date")
 	private Date modifyDate;
 
 	private String name;
@@ -56,17 +55,20 @@ public class Owner implements Serializable {
 
 	private String twitter;
 
-	//bi-directional many-to-one association to Advertisement
-	@OneToMany(mappedBy="owner")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "login_date")
+	private Date loginDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "logout_date")
+	private Date logoutDate;
+
+	@Column(name = "sms_code")
+	private String smsCode;
+
+	// bi-directional many-to-one association to Advertisement
+	@OneToMany(mappedBy = "owner")
 	private List<Advertisement> advertisements;
-
-	//bi-directional many-to-one association to Licence
-	@OneToMany(mappedBy="owner")
-	private List<Licence> licences;
-
-	//bi-directional many-to-one association to Work
-	@OneToMany(mappedBy="owner")
-	private List<Work> works;
 
 	public Owner() {
 	}
@@ -118,8 +120,6 @@ public class Owner implements Serializable {
 	public void setInstagram(String instagram) {
 		this.instagram = instagram;
 	}
-
-	
 
 	public Date getModifyDate() {
 		return this.modifyDate;
@@ -183,56 +183,36 @@ public class Owner implements Serializable {
 		return advertisement;
 	}
 
-	public List<Licence> getLicences() {
-		return this.licences;
-	}
-
-	public void setLicences(List<Licence> licences) {
-		this.licences = licences;
-	}
-
-	public Licence addLicence(Licence licence) {
-		getLicences().add(licence);
-		licence.setOwner(this);
-
-		return licence;
-	}
-
-	public Licence removeLicence(Licence licence) {
-		getLicences().remove(licence);
-		licence.setOwner(null);
-
-		return licence;
-	}
-
-	public List<Work> getWorks() {
-		return this.works;
-	}
-
-	public void setWorks(List<Work> works) {
-		this.works = works;
-	}
-
-	public Work addWork(Work work) {
-		getWorks().add(work);
-		work.setOwner(this);
-
-		return work;
-	}
-
-	public Work removeWork(Work work) {
-		getWorks().remove(work);
-		work.setOwner(null);
-
-		return work;
-	}
-
 	public String getUid() {
 		return uid;
 	}
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public Date getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
+	}
+
+	public Date getLogoutDate() {
+		return logoutDate;
+	}
+
+	public void setLogoutDate(Date logoutDate) {
+		this.logoutDate = logoutDate;
+	}
+
+	public String getSmsCode() {
+		return smsCode;
+	}
+
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
 	}
 
 }

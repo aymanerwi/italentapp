@@ -5,11 +5,78 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+
 import com.exdev.italent.model.Owner;
 import com.exdev.italent.obj.OwnerObj;
+import com.exdev.italent.obj.ConfirmObj;
 
 public class OwnerService extends BaseService {
 
+	
+	public OwnerObj registerUser(OwnerObj obj) {
+		Owner owner = null;
+		try {
+			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("mobileNo", obj.getPhone())
+					.getSingleResult();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+
+		if (owner == null) {
+			owner = new Owner();
+
+			owner.setPhone(obj.getPhone());
+			owner.setName(obj.getName());
+			owner.setNotes(obj.getNotes());
+			owner.setUid(UUID.randomUUID().toString());
+			owner.setCreateDate(new Date());
+
+		} else {
+			owner.setPhone(obj.getPhone());
+			owner.setName(obj.getName());
+			owner.setNotes(obj.getNotes());
+			owner.setModifyDate(new Date());
+		}
+		String smscode = RandomStringUtils.randomNumeric(4);
+		String code = DigestUtils.md5Hex(smscode);
+		owner.setSmsCode(code);
+		owner.setDisabled(true);
+		obj.setSmsCode(smscode);
+		obj.setId(owner.getId());
+		em.getTransaction().begin();
+		em.persist(owner);
+		em.getTransaction().commit();
+		//Utils.sendSMS(obj.getMobileNo(), "Confirmation code " + smscode);
+		return obj;
+
+	}
+
+	public OwnerObj confirmSms(ConfirmObj obj) {
+		Owner owner = null;
+		try {
+			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("mobileNo", obj.getMobileNo())
+					.getSingleResult();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		if (owner == null)
+			return null;
+		String code = DigestUtils.md5Hex(obj.getSmsCode());
+		if (owner.getSmsCode().equals(code)) {
+			owner.setLoginDate(new Date());
+			owner.setDisabled(false);
+			em.getTransaction().begin();
+			em.persist(owner);
+			em.getTransaction().commit();
+			return null;
+		} else
+			return null;
+	}
+	
 	private void fillOwner(OwnerObj obj, Owner owner) {
 		owner.setName(obj.getName());
 		owner.setCertified(obj.getCertified());

@@ -23,16 +23,6 @@ public class WorkService extends BaseService {
 		obj.setId(work.getId());
 	}
 
-	private void fillWork(WorkObj obj, Work work) {
-		work.setNotes(obj.getNotes());
-		work.setTitle(obj.getTitle());
-		work.setLink(obj.getLink());
-
-		OwnerObj ownerObj = obj.getOwner();
-		Owner owner = em.find(Owner.class, ownerObj.getId());
-		work.setOwner(owner);
-	}
-
 	public void updateWork(int id, WorkObj obj) {
 		Work work = em.find(Work.class, id);
 

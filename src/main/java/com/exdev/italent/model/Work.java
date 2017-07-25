@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="work")
-@NamedQuery(name="Work.findAll", query="SELECT w FROM Work w where w.owner.id = :ownerid")
+@NamedQuery(name="Work.findAll", query="SELECT w FROM Work w where w.advertisement.id = :adid")
 public class Work implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -44,14 +44,13 @@ public class Work implements Serializable {
 	private String notes;
 
 	private String title;
-
-	//bi-directional many-to-one association to Owner
+	
+	private byte[] image;
+	
 	@ManyToOne
-	private Owner owner;
+	private Advertisement advertisement;
 
-	//bi-directional many-to-one association to WorkDetail
-	@OneToMany(mappedBy="work")
-	private List<WorkDetails> workDetails;
+
 
 	public Work() {
 	}
@@ -103,35 +102,20 @@ public class Work implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public Owner getOwner() {
-		return this.owner;
+	public Advertisement getAdvertisement() {
+		return advertisement;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setAdvertisement(Advertisement advertisement) {
+		this.advertisement = advertisement;
 	}
 
-	public List<WorkDetails> getWorkDetails() {
-		return this.workDetails;
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setWorkDetails(List<WorkDetails> workDetails) {
-		this.workDetails = workDetails;
-	}
-
-	public WorkDetails addWorkDetail(WorkDetails workDetails) {
-		getWorkDetails().add(workDetails);
-		workDetails.setWork(this);
-
-		return workDetails;
-	}
-
-	public WorkDetails removeWorkDetail(WorkDetails workDetails) {
-		getWorkDetails().remove(workDetails);
-		workDetails.setWork(null);
-
-		return workDetails;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 }

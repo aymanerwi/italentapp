@@ -26,12 +26,8 @@ public class OwnerObj extends Obj {
 	private Date createDate;
 	
 	private Date modifyDate;
-	
-	private List<AdvertisementObj> advertisements;
 
-	private List<LicenceObj> licences;
-
-	private List<WorkObj> works;
+	private String smsCode;
 	
 	public OwnerObj() {
 	
@@ -102,24 +98,7 @@ public class OwnerObj extends Obj {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public List<AdvertisementObj> getAdvertisements() {
-		return advertisements;
-	}
-	public void setAdvertisements(List<AdvertisementObj> advertisements) {
-		this.advertisements = advertisements;
-	}
-	public List<LicenceObj> getLicences() {
-		return licences;
-	}
-	public void setLicences(List<LicenceObj> licences) {
-		this.licences = licences;
-	}
-	public List<WorkObj> getWorks() {
-		return works;
-	}
-	public void setWorks(List<WorkObj> works) {
-		this.works = works;
-	}
+
 	public String getNotes() {
 		return notes;
 	}
@@ -131,6 +110,12 @@ public class OwnerObj extends Obj {
 	}
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	public String getSmsCode() {
+		return smsCode;
+	}
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
 	}
 
 	

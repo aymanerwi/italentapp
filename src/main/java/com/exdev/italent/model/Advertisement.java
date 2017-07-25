@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,36 +18,33 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the advertisement database table.
  * 
  */
 @Entity
-@Table(name="advertisement")
-@NamedQueries({ 
-	@NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"), 
-	@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid") 
-})
+@Table(name = "advertisement")
+@NamedQueries({ @NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"),
+		@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid") })
 public class Advertisement implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_date")
+	@Column(name = "create_date")
 	private Date createDate;
 
 	private String description;
-	
+
 	private byte[] image;
 
 	private boolean disabled;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="expire_date")
+	@Column(name = "expire_date")
 	private Date expireDate;
 
 	private String uid;
@@ -56,7 +54,7 @@ public class Advertisement implements Serializable {
 	private double longitude;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="modify_date")
+	@Column(name = "modify_date")
 	private Date modifyDate;
 
 	private String notes;
@@ -67,13 +65,21 @@ public class Advertisement implements Serializable {
 
 	private String unit;
 
-	//bi-directional many-to-one association to Owner
+	// bi-directional many-to-one association to Owner
 	@ManyToOne
 	private Owner owner;
 
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="advertisement")
+	// bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy = "advertisement")
 	private List<Comment> comments;
+
+	// bi-directional many-to-one association to Licence
+	@OneToMany(mappedBy = "advertisement",cascade=CascadeType.ALL)
+	private List<Licence> licences;
+
+	// bi-directional many-to-one association to Work
+	@OneToMany(mappedBy = "advertisement", cascade=CascadeType.ALL)
+	private List<Work> works;
 
 	public Advertisement() {
 	}
@@ -117,8 +123,6 @@ public class Advertisement implements Serializable {
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
 	}
-
-	
 
 	public double getLatitude() {
 		return this.latitude;
@@ -220,6 +224,22 @@ public class Advertisement implements Serializable {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public List<Licence> getLicences() {
+		return licences;
+	}
+
+	public void setLicences(List<Licence> licences) {
+		this.licences = licences;
+	}
+
+	public List<Work> getWorks() {
+		return works;
+	}
+
+	public void setWorks(List<Work> works) {
+		this.works = works;
 	}
 
 }

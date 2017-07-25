@@ -3,6 +3,8 @@ package com.exdev.italent.obj;
 import java.util.Date;
 import java.util.List;
 
+import com.exdev.italent.model.Licence;
+
 public class AdvertisementObj extends Obj {
 
 	private Date createDate;
@@ -34,6 +36,8 @@ public class AdvertisementObj extends Obj {
 	private OwnerObj owner;
 
 	private List<CommentObj> comments;
+	private List<WorkObj> works;
+	private List<LicenceObj> licences;
 	
 	public AdvertisementObj() {
 	
@@ -158,6 +162,22 @@ public class AdvertisementObj extends Obj {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public List<WorkObj> getWorks() {
+		return works;
+	}
+
+	public void setWorks(List<WorkObj> works) {
+		this.works = works;
+	}
+
+	public List<LicenceObj> getLicences() {
+		return licences;
+	}
+
+	public void setLicences(List<LicenceObj> licences) {
+		this.licences = licences;
 	}
 	
 	

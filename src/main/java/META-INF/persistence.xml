@@ -8,13 +8,22 @@
 		<class>com.exdev.italent.model.Licence</class>
 		<class>com.exdev.italent.model.Owner</class>
 		<class>com.exdev.italent.model.Work</class>
-		<class>com.exdev.italent.model.WorkDetails</class>
-		<class>com.exdev.italent.model.User</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
+		
+		<!--  remote 
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://127.9.7.130:3306/italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />
 			<property name="javax.persistence.jdbc.user" value="adminfCqsZUw" />
 			<property name="javax.persistence.jdbc.password" value="3evKFprXh-dS" />
+			-->
+			<!-- Local -->
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="994506" />
+			
+			
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="eclipselink.target-database" value="MySQL" />
 			<property name="eclipselink.logging.level.sql" value="FINE" />

@@ -15,10 +15,10 @@ public class WorkObj extends Obj{
 
 	private String title;
 	
+	private String image;
 	
-	private OwnerObj owner;
+	private AdvertisementObj advertisementObj;
 	
-	private List<WorkDetailsObj> workDetails;
 	
 	public WorkObj() {
 	
@@ -64,21 +64,22 @@ public class WorkObj extends Obj{
 		this.title = title;
 	}
 
-	public OwnerObj getOwner() {
-		return owner;
+	public String getImage() {
+		return image;
 	}
 
-	public void setOwner(OwnerObj owner) {
-		this.owner = owner;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
-	public List<WorkDetailsObj> getWorkDetails() {
-		return workDetails;
+	public AdvertisementObj getAdvertisementObj() {
+		return advertisementObj;
 	}
 
-	public void setWorkDetails(List<WorkDetailsObj> workDetails) {
-		this.workDetails = workDetails;
+	public void setAdvertisementObj(AdvertisementObj advertisementObj) {
+		this.advertisementObj = advertisementObj;
 	}
+
 	
 	
 	

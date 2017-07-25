@@ -7,7 +7,7 @@ public class LicenceObj extends Obj {
 
 	private String notes;
 	
-	private OwnerObj owner;
+	private AdvertisementObj ad;
 	
 	public LicenceObj() {
 	
@@ -29,13 +29,16 @@ public class LicenceObj extends Obj {
 		this.notes = notes;
 	}
 
-	public OwnerObj getOwner() {
-		return owner;
+	public AdvertisementObj getAd() {
+		return ad;
 	}
 
-	public void setOwner(OwnerObj owner) {
-		this.owner = owner;
+	public void setAd(AdvertisementObj ad) {
+		this.ad = ad;
 	}
+
+
+
 	
 	
 }

@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="licence")
-@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.owner.id = :ownerid")
+@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.advertisement.id = :adid")
 public class Licence implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class Licence implements Serializable {
 
 	//bi-directional many-to-one association to Owner
 	@ManyToOne
-	private Owner owner;
+	private Advertisement advertisement;
 
 	public Licence() {
 	}
@@ -60,12 +60,14 @@ public class Licence implements Serializable {
 		this.notes = notes;
 	}
 
-	public Owner getOwner() {
-		return this.owner;
+	public Advertisement getAdvertisement() {
+		return advertisement;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setAdvertisement(Advertisement advertisement) {
+		this.advertisement = advertisement;
 	}
+
+
 
 }

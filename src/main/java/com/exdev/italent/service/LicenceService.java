@@ -1,6 +1,5 @@
 package com.exdev.italent.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.exdev.italent.model.Licence;
@@ -20,15 +19,9 @@ public class LicenceService extends BaseService {
 		obj.setId(licence.getId());
 	}
 
-	private void fillLicence(LicenceObj obj, Licence licence) {
-		licence.setImage(decodeString(obj.getImage()));
-		licence.setNotes(obj.getNotes());
-		Owner owner = em.find(Owner.class, obj.getOwner().getId());
-		licence.setOwner(owner);
-	}
-
 	public void updateLicence(int id, LicenceObj obj) {
 		Licence licence = em.find(Licence.class, id);
+		if(licence == null) return;
 		fillLicence(obj, licence);
 		em.getTransaction().begin();
 		em.persist(licence);
@@ -44,23 +37,9 @@ public class LicenceService extends BaseService {
 		return obj;
 	}
 
-	private void fillLicenceObj(Licence licence, LicenceObj obj) {
-		obj.setId(licence.getId());
-		obj.setImage(encodeBytes(licence.getImage()));
-		obj.setNotes(licence.getNotes());
-		OwnerObj ownerObj = new OwnerObj();
-		fillOwnerObj(licence.getOwner(), ownerObj);
-		obj.setOwner(ownerObj);
-	}
-
 	public List<LicenceObj> listLicences(int ownerid,int start, int max) {
 		List<Licence> licences = em.createNamedQuery("Licence.findAll").setParameter("ownerid", ownerid).setFirstResult(start).setMaxResults(max).getResultList();
-		List<LicenceObj> objs = new ArrayList<LicenceObj>(licences.size());
-		for (Licence licence : licences) {
-			LicenceObj obj = new LicenceObj();
-			fillLicenceObj(licence, obj);
-			objs.add(obj);
-		}
+		List<LicenceObj> objs = toLicenceObjsList(licences);
 		return objs;
 	}
 

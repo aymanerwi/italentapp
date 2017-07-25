@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import com.exdev.italent.obj.OwnerObj;
+import com.exdev.italent.obj.ConfirmObj;
 import com.exdev.italent.service.OwnerService;
 
 @RequestScoped
@@ -33,6 +34,15 @@ public class OwnerApi {
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(ownerobj.getId())).build())
 				.entity(ownerobj).build();
+	}
+	
+	@PUT
+	public Response confirm(ConfirmObj userobj) {
+		OwnerService service = new OwnerService();
+		OwnerObj obj = service.confirmSms(userobj);
+		service.close();
+		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(obj.getId())).build())
+				.entity(obj).build();
 	}
 
 	@GET
