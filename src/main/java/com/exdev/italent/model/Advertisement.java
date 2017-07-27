@@ -70,7 +70,7 @@ public class Advertisement implements Serializable {
 	private Owner owner;
 
 	// bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy = "advertisement")
+	@OneToMany(mappedBy = "advertisement",cascade=CascadeType.ALL)
 	private List<Comment> comments;
 
 	// bi-directional many-to-one association to Licence

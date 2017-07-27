@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 import com.exdev.italent.model.Advertisement;
+import com.exdev.italent.model.Comment;
 import com.exdev.italent.model.Licence;
 import com.exdev.italent.model.Owner;
 import com.exdev.italent.model.Work;
 import com.exdev.italent.obj.AdvertisementObj;
+import com.exdev.italent.obj.CommentObj;
 import com.exdev.italent.obj.LicenceObj;
 import com.exdev.italent.obj.OwnerObj;
 import com.exdev.italent.obj.WorkObj;
@@ -41,6 +43,16 @@ public class AdvertisementService extends BaseService {
 			licences.add(licence);
 		}
 		ad.setLicences(licences);
+		
+		List<CommentObj> commentObjs = obj.getComments();
+		List<Comment> comments = new ArrayList<>(commentObjs.size());
+		for (CommentObj commentObj : commentObjs) {
+			Comment comment = new Comment();
+			fillComment(commentObj, comment);
+			comment.setAdvertisement(ad);
+			comments.add(comment);
+		}
+		ad.setComments(comments);
 
 		ad.setUid(UUID.randomUUID().toString());
 

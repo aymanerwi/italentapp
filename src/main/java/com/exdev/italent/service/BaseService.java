@@ -185,4 +185,15 @@ public class BaseService {
 		Advertisement ad = em.find(Advertisement.class, adObj.getId());
 		licence.setAdvertisement(ad);
 	}
+
+	protected void fillComment(CommentObj obj, Comment comment) {
+		comment.setComments(obj.getComments());
+		comment.setName(obj.getName());
+		comment.setDisabled(obj.isDisabled());
+		comment.setRate(obj.getRate());
+		if (obj.getAdvertisement() != null) {
+			Advertisement ad = em.find(Advertisement.class, obj.getAdvertisement().getId());
+			comment.setAdvertisement(ad);
+		}
+	}
 }

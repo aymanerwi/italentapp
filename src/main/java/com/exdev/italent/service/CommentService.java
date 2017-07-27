@@ -2,7 +2,6 @@ package com.exdev.italent.service;
 
 import java.util.Date;
 
-import com.exdev.italent.model.Advertisement;
 import com.exdev.italent.model.Comment;
 import com.exdev.italent.obj.CommentObj;
 
@@ -23,15 +22,6 @@ public class CommentService extends BaseService {
 		
 		
 
-	}
-
-	private void fillComment(CommentObj obj, Comment comment) {
-		comment.setComments(obj.getComments());
-		comment.setName(obj.getName());
-		comment.setDisabled(obj.isDisabled());
-		comment.setRate(obj.getRate());
-		Advertisement ad = em.find(Advertisement.class, obj.getAdvertisement().getId());
-		comment.setAdvertisement(ad);
 	}
 
 	public void updateComment(int id, CommentObj obj) {
