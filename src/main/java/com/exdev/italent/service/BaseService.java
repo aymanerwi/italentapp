@@ -44,6 +44,9 @@ public class BaseService {
 		obj.setNotes(owner.getNotes());
 		obj.setPhone(owner.getPhone());
 		obj.setTwitter(owner.getTwitter());
+		obj.setLoginDate(owner.getLoginDate());
+		obj.setLogoutDate(owner.getLogoutDate());
+		
 	}
 
 	protected void fillWorkObj(Work work, WorkObj obj) {
@@ -76,6 +79,9 @@ public class BaseService {
 		obj.setImage(encodeBytes(ad.getImage()));
 
 		List<Comment> comments = ad.getComments();
+		double rating = getRating(comments);
+		obj.setRating(rating);
+		
 		List<CommentObj> commentObjs = toCommentObjsList(comments);
 		obj.setComments(commentObjs);
 
@@ -86,6 +92,15 @@ public class BaseService {
 		List<Licence> licences = ad.getLicences();
 		List<LicenceObj> licenceObjs = toLicenceObjsList(licences);
 		obj.setLicences(licenceObjs);
+	}
+
+	private double getRating(List<Comment> comments) {
+		double rating = 0;
+		for (Comment comment : comments) {
+			rating+= comment.getRate();
+		}
+		rating /= comments.size();
+		return rating;
 	}
 
 	public byte[] decodeString(String str) {
@@ -169,7 +184,7 @@ public class BaseService {
 		work.setLink(obj.getLink());
 		work.setImage(decodeString(obj.getImage()));
 
-		AdvertisementObj adObj = obj.getAdvertisementObj();
+		AdvertisementObj adObj = obj.getAd();
 		if (adObj == null)
 			return;
 		Advertisement ad = em.find(Advertisement.class, adObj.getId());
@@ -191,8 +206,8 @@ public class BaseService {
 		comment.setName(obj.getName());
 		comment.setDisabled(obj.isDisabled());
 		comment.setRate(obj.getRate());
-		if (obj.getAdvertisement() != null) {
-			Advertisement ad = em.find(Advertisement.class, obj.getAdvertisement().getId());
+		if (obj.getAd() != null) {
+			Advertisement ad = em.find(Advertisement.class, obj.getAd().getId());
 			comment.setAdvertisement(ad);
 		}
 	}

@@ -32,6 +32,8 @@ public class AdvertisementObj extends Obj {
 	private String title;
 
 	private String unit;
+	
+	private double rating;
 
 	private OwnerObj owner;
 
@@ -178,6 +180,14 @@ public class AdvertisementObj extends Obj {
 
 	public void setLicences(List<LicenceObj> licences) {
 		this.licences = licences;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 	
 	

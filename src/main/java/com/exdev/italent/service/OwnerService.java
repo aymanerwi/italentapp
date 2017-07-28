@@ -10,61 +10,58 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import com.exdev.italent.model.Owner;
 import com.exdev.italent.obj.OwnerObj;
+import com.exdev.italent.utils.Utils;
 import com.exdev.italent.obj.ConfirmObj;
 
 public class OwnerService extends BaseService {
 
-	
-	public OwnerObj registerUser(OwnerObj obj) {
+	public OwnerObj registerOwner(OwnerObj obj, boolean sendsms) {
 		Owner owner = null;
 		try {
-			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("mobileNo", obj.getPhone())
+			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("phone", obj.getPhone())
 					.getSingleResult();
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
 
 		if (owner == null) {
 			owner = new Owner();
-
-			owner.setPhone(obj.getPhone());
-			owner.setName(obj.getName());
-			owner.setNotes(obj.getNotes());
-			owner.setUid(UUID.randomUUID().toString());
 			owner.setCreateDate(new Date());
 
 		} else {
-			owner.setPhone(obj.getPhone());
-			owner.setName(obj.getName());
-			owner.setNotes(obj.getNotes());
 			owner.setModifyDate(new Date());
+
 		}
 		String smscode = RandomStringUtils.randomNumeric(4);
 		String code = DigestUtils.md5Hex(smscode);
 		owner.setSmsCode(code);
 		owner.setDisabled(true);
-		obj.setSmsCode(smscode);
-		obj.setId(owner.getId());
+		owner.setPhone(obj.getPhone());
+		owner.setName(obj.getName());
+		owner.setNotes(obj.getNotes());
+		owner.setUid(UUID.randomUUID().toString());
+		owner.setCertified(obj.getCertified());
+
 		em.getTransaction().begin();
 		em.persist(owner);
 		em.getTransaction().commit();
-		//Utils.sendSMS(obj.getMobileNo(), "Confirmation code " + smscode);
+		obj.setSmsCode(smscode);
+		obj.setId(owner.getId());
+		if (sendsms)
+			Utils.sendSMS(obj.getPhone(), "Confirmation code " + smscode);
 		return obj;
 
 	}
 
-	public OwnerObj confirmSms(ConfirmObj obj) {
+	public OwnerObj confirmSms(ConfirmObj obj) throws Exception {
 		Owner owner = null;
 		try {
-			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("mobileNo", obj.getMobileNo())
+			owner = em.createNamedQuery("Owner.findByPhone", Owner.class).setParameter("phone", obj.getMobileNo())
 					.getSingleResult();
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+			throw new Exception("Owner not found");
 		}
-		if (owner == null)
-			return null;
+
 		String code = DigestUtils.md5Hex(obj.getSmsCode());
 		if (owner.getSmsCode().equals(code)) {
 			owner.setLoginDate(new Date());
@@ -72,11 +69,13 @@ public class OwnerService extends BaseService {
 			em.getTransaction().begin();
 			em.persist(owner);
 			em.getTransaction().commit();
-			return null;
+			OwnerObj ownerObj = new OwnerObj();
+			fillOwnerObj(owner, ownerObj);
+			return ownerObj;
 		} else
-			return null;
+			throw new Exception("SMS code not maches");
 	}
-	
+
 	private void fillOwner(OwnerObj obj, Owner owner) {
 		owner.setName(obj.getName());
 		owner.setCertified(obj.getCertified());
@@ -117,7 +116,8 @@ public class OwnerService extends BaseService {
 
 	public OwnerObj getOwner(int id) {
 		Owner owner = findOwner(id);
-		if(owner == null) return null;
+		if (owner == null)
+			return null;
 		OwnerObj obj = new OwnerObj();
 		fillOwnerObj(owner, obj);
 		return obj;
@@ -127,14 +127,14 @@ public class OwnerService extends BaseService {
 		List<Owner> owners = em.createNamedQuery("Owner.findAll").setFirstResult(start).setMaxResults(max)
 				.getResultList();
 		List<OwnerObj> objs = new ArrayList<OwnerObj>(owners.size());
-		for(Owner owner : owners) {
+		for (Owner owner : owners) {
 			OwnerObj obj = new OwnerObj();
 			fillOwnerObj(owner, obj);
 			objs.add(obj);
 		}
 		return objs;
 	}
-	
+
 	public void deleteOwner(int id) {
 		Owner owner = findOwner(id);
 		em.getTransaction().begin();

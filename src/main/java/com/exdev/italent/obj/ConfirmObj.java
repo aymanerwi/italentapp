@@ -1,6 +1,6 @@
 package com.exdev.italent.obj;
 
-public class ConfirmObj {
+public class ConfirmObj extends Obj {
 
 	private String mobileNo;
 	private String smsCode;

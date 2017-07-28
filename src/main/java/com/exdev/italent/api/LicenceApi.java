@@ -48,12 +48,12 @@ public class LicenceApi {
 	}
 
 	@GET
-	@Path("/owner/{ownerid}")
-	public List<LicenceObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final int startPosition,
+	@Path("/ad/{adid}")
+	public List<LicenceObj> listAll(@PathParam("adid") int adid,@QueryParam("start") final int startPosition,
 			@QueryParam("max") final int maxResult) {
 		
 		LicenceService service = new LicenceService();
-		final List<LicenceObj> licenceobjs = service.listLicences(ownerid, startPosition, maxResult);
+		final List<LicenceObj> licenceobjs = service.listLicences(adid, startPosition, maxResult);
 		service.close();
 		return licenceobjs;
 	}

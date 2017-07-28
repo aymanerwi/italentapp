@@ -49,11 +49,11 @@ public class WorkApi {
 	}
 
 	@GET
-	@Path("/owner/{ownerid}")
-	public List<WorkObj> listAll(@PathParam("ownerid") int ownerid,@QueryParam("start") final int startPosition,
+	@Path("/ad/{adid}")
+	public List<WorkObj> listAll(@PathParam("adid") int adid,@QueryParam("start") final int startPosition,
 			@QueryParam("max") final int maxResult) {
 		WorkService service = new WorkService();
-		final List<WorkObj> workobjs = service.listWorks(ownerid, startPosition, maxResult);
+		final List<WorkObj> workobjs = service.listWorks(adid, startPosition, maxResult);
 		service.close();
 		return workobjs;
 	}

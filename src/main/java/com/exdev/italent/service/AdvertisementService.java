@@ -24,6 +24,7 @@ public class AdvertisementService extends BaseService {
 		ad.setCreateDate(new Date());
 
 		fillAdvertisement(obj, ad);
+
 		List<WorkObj> workObjs = obj.getWorks();
 		List<Work> works = new ArrayList<>(workObjs.size());
 		for (WorkObj workObj : workObjs) {
@@ -33,7 +34,7 @@ public class AdvertisementService extends BaseService {
 			works.add(work);
 		}
 		ad.setWorks(works);
-		
+
 		List<LicenceObj> licenceObjs = obj.getLicences();
 		List<Licence> licences = new ArrayList<>(licenceObjs.size());
 		for (LicenceObj licenceObj : licenceObjs) {
@@ -43,7 +44,7 @@ public class AdvertisementService extends BaseService {
 			licences.add(licence);
 		}
 		ad.setLicences(licences);
-		
+
 		List<CommentObj> commentObjs = obj.getComments();
 		List<Comment> comments = new ArrayList<>(commentObjs.size());
 		for (CommentObj commentObj : commentObjs) {
@@ -66,7 +67,10 @@ public class AdvertisementService extends BaseService {
 	private void fillAdvertisement(AdvertisementObj obj, Advertisement ad) {
 		OwnerObj ownerObj = obj.getOwner();
 		Owner owner = em.find(Owner.class, ownerObj.getId());
+		if (owner == null)
+			throw new NullPointerException("Owner cannot be null");
 		ad.setOwner(owner);
+
 		ad.setImage(decodeString(obj.getImage()));
 		ad.setDescription(obj.getDescription());
 		ad.setExpireDate(obj.getExpireDate());
@@ -84,6 +88,42 @@ public class AdvertisementService extends BaseService {
 		ad.setModifyDate(new Date());
 
 		fillAdvertisement(obj, ad);
+
+		List<WorkObj> workObjs = obj.getWorks();
+		List<Work> works = new ArrayList<>(workObjs.size());
+		for (WorkObj workObj : workObjs) {
+			Work work = em.find(Work.class, workObj.getId());
+			if (work == null)
+				work = new Work();
+			fillWork(workObj, work);
+			work.setAdvertisement(ad);
+			works.add(work);
+		}
+		ad.setWorks(works);
+
+		List<LicenceObj> licenceObjs = obj.getLicences();
+		List<Licence> licences = new ArrayList<>(licenceObjs.size());
+		for (LicenceObj licenceObj : licenceObjs) {
+			Licence licence = em.find(Licence.class, licenceObj.getId());
+			if (licence == null)
+				licence = new Licence();
+			fillLicence(licenceObj, licence);
+			licence.setAdvertisement(ad);
+			licences.add(licence);
+		}
+		ad.setLicences(licences);
+
+		List<CommentObj> commentObjs = obj.getComments();
+		List<Comment> comments = new ArrayList<>(commentObjs.size());
+		for (CommentObj commentObj : commentObjs) {
+			Comment comment = em.find(Comment.class, commentObj.getId());
+			if (comment == null)
+				comment = new Comment();
+			fillComment(commentObj, comment);
+			comment.setAdvertisement(ad);
+			comments.add(comment);
+		}
+		ad.setComments(comments);
 
 		em.getTransaction().begin();
 		em.persist(ad);

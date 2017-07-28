@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.NamedQueries;
 
 /**
  * The persistent class for the owner database table.
@@ -21,7 +22,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "owner")
-@NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o")
+@NamedQueries({ 
+	@NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o"), 
+	@NamedQuery(name = "Owner.findByPhone", query = "SELECT o FROM Owner o where o.phone = :phone") 
+})
 public class Owner implements Serializable {
 	private static final long serialVersionUID = 1L;
 

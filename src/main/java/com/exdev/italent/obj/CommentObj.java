@@ -14,7 +14,7 @@ public class CommentObj extends Obj {
 
 	private int rate;
 	
-	private AdvertisementObj advertisement;
+	private AdvertisementObj ad;
 	
 	public CommentObj() {
 	
@@ -60,13 +60,14 @@ public class CommentObj extends Obj {
 		this.rate = rate;
 	}
 
-	public AdvertisementObj getAdvertisement() {
-		return advertisement;
+	public AdvertisementObj getAd() {
+		return ad;
 	}
 
-	public void setAdvertisement(AdvertisementObj advertisement) {
-		this.advertisement = advertisement;
+	public void setAd(AdvertisementObj ad) {
+		this.ad = ad;
 	}
+
 	
 	
 }

@@ -46,8 +46,8 @@ public class WorkService extends BaseService {
 
 	}
 
-	public List<WorkObj> listWorks(int ownerid,int start, int max) {
-		List<Work> works = em.createNamedQuery("Work.findAll", Work.class).setParameter("ownerid", ownerid).setFirstResult(start).setMaxResults(max)
+	public List<WorkObj> listWorks(int adid,int start, int max) {
+		List<Work> works = em.createNamedQuery("Work.findAll", Work.class).setParameter("adid", adid).setFirstResult(start).setMaxResults(max)
 				.getResultList();
 
 		List<WorkObj> objs = toWorkObjsList(works);

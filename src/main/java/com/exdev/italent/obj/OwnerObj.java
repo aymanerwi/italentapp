@@ -29,6 +29,10 @@ public class OwnerObj extends Obj {
 
 	private String smsCode;
 	
+	private Date loginDate;
+	
+	private Date logoutDate;
+	
 	public OwnerObj() {
 	
 	}
@@ -116,6 +120,18 @@ public class OwnerObj extends Obj {
 	}
 	public void setSmsCode(String smsCode) {
 		this.smsCode = smsCode;
+	}
+	public Date getLoginDate() {
+		return loginDate;
+	}
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
+	}
+	public Date getLogoutDate() {
+		return logoutDate;
+	}
+	public void setLogoutDate(Date logoutDate) {
+		this.logoutDate = logoutDate;
 	}
 
 	

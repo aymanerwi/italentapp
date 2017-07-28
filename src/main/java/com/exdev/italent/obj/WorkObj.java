@@ -17,7 +17,7 @@ public class WorkObj extends Obj{
 	
 	private String image;
 	
-	private AdvertisementObj advertisementObj;
+	private AdvertisementObj ad;
 	
 	
 	public WorkObj() {
@@ -72,12 +72,12 @@ public class WorkObj extends Obj{
 		this.image = image;
 	}
 
-	public AdvertisementObj getAdvertisementObj() {
-		return advertisementObj;
+	public AdvertisementObj getAd() {
+		return ad;
 	}
 
-	public void setAdvertisementObj(AdvertisementObj advertisementObj) {
-		this.advertisementObj = advertisementObj;
+	public void setAd(AdvertisementObj ad) {
+		this.ad = ad;
 	}
 
 	

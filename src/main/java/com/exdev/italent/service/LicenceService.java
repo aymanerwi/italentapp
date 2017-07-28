@@ -37,8 +37,8 @@ public class LicenceService extends BaseService {
 		return obj;
 	}
 
-	public List<LicenceObj> listLicences(int ownerid,int start, int max) {
-		List<Licence> licences = em.createNamedQuery("Licence.findAll").setParameter("ownerid", ownerid).setFirstResult(start).setMaxResults(max).getResultList();
+	public List<LicenceObj> listLicences(int adid,int start, int max) {
+		List<Licence> licences = em.createNamedQuery("Licence.findAll").setParameter("adid", adid).setFirstResult(start).setMaxResults(max).getResultList();
 		List<LicenceObj> objs = toLicenceObjsList(licences);
 		return objs;
 	}
