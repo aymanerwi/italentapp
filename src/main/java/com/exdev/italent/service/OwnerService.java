@@ -47,8 +47,10 @@ public class OwnerService extends BaseService {
 		em.getTransaction().commit();
 		obj.setSmsCode(smscode);
 		obj.setId(owner.getId());
-		if (sendsms)
-			Utils.sendSMS(obj.getPhone(), "Confirmation code " + smscode);
+		if (sendsms) {
+			String sendresp = Utils.sendSMS(obj.getPhone(), "Confirmation code " + smscode);
+			System.out.println("Send SMS Response: " + sendresp);
+		}
 		return obj;
 
 	}
