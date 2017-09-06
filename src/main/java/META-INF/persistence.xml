@@ -11,12 +11,18 @@
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
 		
-		<!--  remote --> 
+		<!--  soomaub_italentapp --> 
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/soomaub_italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />
+			<property name="javax.persistence.jdbc.user" value="soomaub_admin" />
+			<property name="javax.persistence.jdbc.password" value="00994506" />
+			
+		<!--  remote 
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://127.9.7.130:3306/italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />
 			<property name="javax.persistence.jdbc.user" value="adminfCqsZUw" />
 			<property name="javax.persistence.jdbc.password" value="3evKFprXh-dS" />
-			
+			--> 
 			<!-- Local
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/italentapp?useUnicode=true&amp;characterEncoding=UTF-8" />

@@ -81,6 +81,8 @@ public class Advertisement implements Serializable {
 	@OneToMany(mappedBy = "advertisement", cascade=CascadeType.ALL)
 	private List<Work> works;
 
+	private boolean certified;
+
 	public Advertisement() {
 	}
 
@@ -240,6 +242,14 @@ public class Advertisement implements Serializable {
 
 	public void setWorks(List<Work> works) {
 		this.works = works;
+	}
+
+	public boolean isCertified() {
+		return certified;
+	}
+
+	public void setCertified(boolean certified) {
+		this.certified = certified;
 	}
 
 }

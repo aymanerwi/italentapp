@@ -34,7 +34,6 @@ public class BaseService {
 
 	protected void fillOwnerObj(Owner owner, OwnerObj obj) {
 		obj.setId(owner.getId());
-		obj.setCertified(owner.getCertified());
 		obj.setCreateDate(owner.getCreateDate());
 		obj.setModifyDate(owner.getModifyDate());
 		obj.setEmail(owner.getEmail());
@@ -61,8 +60,9 @@ public class BaseService {
 
 	protected void fillAdvertisementObj(Advertisement ad, AdvertisementObj obj) {
 		obj.setId(ad.getId());
+		obj.setCertified(ad.isCertified());
 		obj.setCreateDate(ad.getCreateDate());
-		obj.setModifyDate(obj.getModifyDate());
+		obj.setModifyDate(ad.getModifyDate());
 		obj.setExpireDate(ad.getExpireDate());
 		obj.setDescription(ad.getDescription());
 		obj.setDisabled(ad.getDisabled());

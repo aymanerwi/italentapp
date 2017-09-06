@@ -7,6 +7,7 @@ import com.exdev.italent.model.Licence;
 
 public class AdvertisementObj extends Obj {
 
+	
 	private Date createDate;
 
 	private String description;
@@ -40,6 +41,8 @@ public class AdvertisementObj extends Obj {
 	private List<CommentObj> comments;
 	private List<WorkObj> works;
 	private List<LicenceObj> licences;
+
+	private boolean certified;
 	
 	public AdvertisementObj() {
 	
@@ -188,6 +191,14 @@ public class AdvertisementObj extends Obj {
 
 	public void setRating(double rating) {
 		this.rating = rating;
+	}
+
+	public boolean isCertified() {
+		return certified;
+	}
+
+	public void setCertified(boolean certified) {
+		this.certified = certified;
 	}
 	
 	

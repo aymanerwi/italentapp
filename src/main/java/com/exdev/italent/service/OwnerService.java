@@ -40,7 +40,6 @@ public class OwnerService extends BaseService {
 		owner.setName(obj.getName());
 		owner.setNotes(obj.getNotes());
 		owner.setUid(UUID.randomUUID().toString());
-		owner.setCertified(obj.getCertified());
 
 		em.getTransaction().begin();
 		em.persist(owner);
@@ -80,7 +79,6 @@ public class OwnerService extends BaseService {
 
 	private void fillOwner(OwnerObj obj, Owner owner) {
 		owner.setName(obj.getName());
-		owner.setCertified(obj.getCertified());
 		owner.setEmail(obj.getEmail());
 		owner.setInstagram(obj.getInstagram());
 		owner.setNotes(obj.getNotes());

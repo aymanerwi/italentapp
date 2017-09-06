@@ -33,8 +33,6 @@ public class Owner implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private boolean certified;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date")
 	private Date createDate;
@@ -83,14 +81,6 @@ public class Owner implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public boolean getCertified() {
-		return this.certified;
-	}
-
-	public void setCertified(boolean certified) {
-		this.certified = certified;
 	}
 
 	public Date getCreateDate() {

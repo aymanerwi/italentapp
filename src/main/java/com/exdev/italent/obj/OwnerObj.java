@@ -7,8 +7,6 @@ import java.util.List;
 public class OwnerObj extends Obj {
 
 	private boolean disabled;
-	private boolean certified;
-
 	private String email;
 
 	private String instagram;
@@ -36,14 +34,6 @@ public class OwnerObj extends Obj {
 	public OwnerObj() {
 	
 	}
-	public boolean getCertified() {
-		return certified;
-	}
-
-	public void setCertified(boolean certified) {
-		this.certified = certified;
-	}
-
 	public String getEmail() {
 		return email;
 	}
