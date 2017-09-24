@@ -26,34 +26,39 @@ public class AdvertisementService extends BaseService {
 		fillAdvertisement(obj, ad);
 
 		List<WorkObj> workObjs = obj.getWorks();
-		List<Work> works = new ArrayList<>(workObjs.size());
-		for (WorkObj workObj : workObjs) {
-			Work work = new Work();
-			fillWork(workObj, work);
-			work.setAdvertisement(ad);
-			works.add(work);
+		if (workObjs != null) {
+			List<Work> works = new ArrayList<>(workObjs.size());
+			for (WorkObj workObj : workObjs) {
+				Work work = new Work();
+				fillWork(workObj, work);
+				work.setAdvertisement(ad);
+				works.add(work);
+			}
+			ad.setWorks(works);
 		}
-		ad.setWorks(works);
 
 		List<LicenceObj> licenceObjs = obj.getLicences();
-		List<Licence> licences = new ArrayList<>(licenceObjs.size());
-		for (LicenceObj licenceObj : licenceObjs) {
-			Licence licence = new Licence();
-			fillLicence(licenceObj, licence);
-			licence.setAdvertisement(ad);
-			licences.add(licence);
+		if (licenceObjs != null) {
+			List<Licence> licences = new ArrayList<>(licenceObjs.size());
+			for (LicenceObj licenceObj : licenceObjs) {
+				Licence licence = new Licence();
+				fillLicence(licenceObj, licence);
+				licence.setAdvertisement(ad);
+				licences.add(licence);
+			}
+			ad.setLicences(licences);
 		}
-		ad.setLicences(licences);
-
 		List<CommentObj> commentObjs = obj.getComments();
-		List<Comment> comments = new ArrayList<>(commentObjs.size());
-		for (CommentObj commentObj : commentObjs) {
-			Comment comment = new Comment();
-			fillComment(commentObj, comment);
-			comment.setAdvertisement(ad);
-			comments.add(comment);
+		if (commentObjs != null) {
+			List<Comment> comments = new ArrayList<>(commentObjs.size());
+			for (CommentObj commentObj : commentObjs) {
+				Comment comment = new Comment();
+				fillComment(commentObj, comment);
+				comment.setAdvertisement(ad);
+				comments.add(comment);
+			}
+			ad.setComments(comments);
 		}
-		ad.setComments(comments);
 
 		ad.setUid(UUID.randomUUID().toString());
 
@@ -91,6 +96,7 @@ public class AdvertisementService extends BaseService {
 
 		List<WorkObj> workObjs = obj.getWorks();
 		List<Work> works = new ArrayList<>(workObjs.size());
+		if (workObjs != null) {
 		for (WorkObj workObj : workObjs) {
 			Work work = em.find(Work.class, workObj.getId());
 			if (work == null)
@@ -100,8 +106,9 @@ public class AdvertisementService extends BaseService {
 			works.add(work);
 		}
 		ad.setWorks(works);
-
+		}
 		List<LicenceObj> licenceObjs = obj.getLicences();
+		if (licenceObjs != null) {
 		List<Licence> licences = new ArrayList<>(licenceObjs.size());
 		for (LicenceObj licenceObj : licenceObjs) {
 			Licence licence = em.find(Licence.class, licenceObj.getId());
@@ -112,8 +119,9 @@ public class AdvertisementService extends BaseService {
 			licences.add(licence);
 		}
 		ad.setLicences(licences);
-
+		}
 		List<CommentObj> commentObjs = obj.getComments();
+		if (commentObjs != null) {
 		List<Comment> comments = new ArrayList<>(commentObjs.size());
 		for (CommentObj commentObj : commentObjs) {
 			Comment comment = em.find(Comment.class, commentObj.getId());
@@ -124,6 +132,7 @@ public class AdvertisementService extends BaseService {
 			comments.add(comment);
 		}
 		ad.setComments(comments);
+		}
 
 		em.getTransaction().begin();
 		em.persist(ad);
