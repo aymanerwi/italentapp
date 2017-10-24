@@ -9,10 +9,15 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.logging.Logger;
 
+import javax.persistence.PreUpdate;
 import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
 @ApplicationPath("/api")
 public class ITalentApp extends Application {
