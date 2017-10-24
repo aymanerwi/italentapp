@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>File Upload</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<h1>ITalent App</h1>
-	<h3>Text Upload File API</h3>
-	<div
-		style="border-bottom-style: solid; border-bottom-width: thin; padding: 10">
-		<form method="post" action="upload" enctype="multipart/form-data;multipart/mixed">
-			<label for="name">Name</label> <input name="name" type="text">
-			<br> <label for="filename">File</label> 
-			<input name="filename"
-				type="file"> <br> <input type="submit"
-				value="Upload">
-		</form>
-	</div>
+	<form method="POST" action="upload" enctype="multipart/form-data">
+		File: <input type="file" name="file" id="file" /> <br /> Destination:
+		<input type="text" value="" name="name" /> </br> <input
+			type="submit" value="Upload" name="upload" id="upload" />
+	</form>
 </body>
 </html>
