@@ -23,7 +23,7 @@ import javax.servlet.http.Part;
  * Servlet implementation class FileUploadServlet
  */
 @WebServlet(name = "FileUploadServlet", urlPatterns = { "/upload" })
-@MultipartConfig(maxFileSize=7340032)
+@MultipartConfig(maxFileSize = 7340032)
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,14 +49,21 @@ public class FileUploadServlet extends HttpServlet {
 		final String name = request.getParameter("name");
 		final String path = request.getServletContext().getRealPath("/images");
 		final Part filePart = request.getPart("file");
-		 final String fileExt = getFileExt(filePart);
-		final String fileName = name +fileExt;
-		final String url = getServerUri(request) + "/images/";
 
 		OutputStream out = null;
 		InputStream filecontent = null;
 		final PrintWriter writer = response.getWriter();
+		if (name == null || name.length() == 0) {
+			throw new ServletException("Error: the name must not be empty");
+		}
+		if (filePart == null || filePart.getSize() == 0) {
 
+			throw new ServletException("Error: the file must not be empty or size 0");
+
+		}
+		final String fileExt = getFileExt(filePart);
+		final String fileName = name + fileExt;
+		final String url = getServerUri(request) + "/images/";
 		try {
 			out = new FileOutputStream(new File(path + File.separator + fileName));
 			filecontent = filePart.getInputStream();
