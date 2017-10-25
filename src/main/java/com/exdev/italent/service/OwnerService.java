@@ -9,9 +9,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.exdev.italent.model.Owner;
+import com.exdev.italent.obj.ConfirmObj;
 import com.exdev.italent.obj.OwnerObj;
 import com.exdev.italent.utils.Utils;
-import com.exdev.italent.obj.ConfirmObj;
 
 public class OwnerService extends BaseService {
 

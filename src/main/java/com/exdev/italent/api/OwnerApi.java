@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
-import com.exdev.italent.obj.OwnerObj;
 import com.exdev.italent.obj.ConfirmObj;
+import com.exdev.italent.obj.OwnerObj;
 import com.exdev.italent.service.OwnerService;
 
 @RequestScoped

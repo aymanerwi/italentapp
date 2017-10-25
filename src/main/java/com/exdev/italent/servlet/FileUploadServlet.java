@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +46,7 @@ public class FileUploadServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		final String name = request.getParameter("name");
-		final String path = request.getServletContext().getRealPath("/images");
+		final String path = request.getServletContext().getRealPath("images");
 		final Part filePart = request.getPart("file");
 
 		OutputStream out = null;

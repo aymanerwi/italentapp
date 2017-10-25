@@ -3,9 +3,7 @@ package com.exdev.italent.service;
 import java.util.Date;
 import java.util.List;
 
-import com.exdev.italent.model.Owner;
 import com.exdev.italent.model.Work;
-import com.exdev.italent.obj.OwnerObj;
 import com.exdev.italent.obj.WorkObj;
 
 public class WorkService extends BaseService {

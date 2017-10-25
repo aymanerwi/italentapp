@@ -3,9 +3,7 @@ package com.exdev.italent.service;
 import java.util.List;
 
 import com.exdev.italent.model.Licence;
-import com.exdev.italent.model.Owner;
 import com.exdev.italent.obj.LicenceObj;
-import com.exdev.italent.obj.OwnerObj;
 
 public class LicenceService extends BaseService {
 
