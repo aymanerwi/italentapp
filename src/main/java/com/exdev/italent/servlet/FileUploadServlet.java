@@ -66,6 +66,7 @@ public class FileUploadServlet extends HttpServlet {
 		if (name == null || name.length() == 0) {
 			throw new ServletException("Error: the name must not be empty");
 		}
+		
 		if (filePart == null || filePart.getSize() == 0) {
 
 			throw new ServletException("Error: the file must not be empty or size 0");
@@ -86,6 +87,8 @@ public class FileUploadServlet extends HttpServlet {
 			}
 			String fileUrl = url + "/"+fileName;
 			writer.println(fileUrl);
+			writer.println("<br/>");
+			writer.println(uploadFilePath);
 			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, uploadFilePath });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
