@@ -28,6 +28,8 @@ public class FileUploadServlet extends HttpServlet {
 
 	private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
+	private static final String UPLOAD_DIR = "uploads";
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -45,8 +47,17 @@ public class FileUploadServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 
+		String applicationPath = request.getServletContext().getRealPath("");
+		String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
+
+		File fileSaveDir = new File(uploadFilePath);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
+		System.out.println("Upload File Directory=" + fileSaveDir.getAbsolutePath());
+
 		final String name = request.getParameter("name");
-		final String path = request.getServletContext().getRealPath("images");
+		final String path = request.getServletContext().getRealPath("/");
 		final Part filePart = request.getPart("file");
 
 		OutputStream out = null;
@@ -62,9 +73,9 @@ public class FileUploadServlet extends HttpServlet {
 		}
 		final String fileExt = getFileExt(filePart);
 		final String fileName = name + fileExt;
-		final String url = getServerUri(request) + "/images/";
+		final String url = getServerUri(request) + "/" + UPLOAD_DIR;
 		try {
-			out = new FileOutputStream(new File(path + File.separator + fileName));
+			out = new FileOutputStream(new File(uploadFilePath + File.separator + fileName));
 			filecontent = filePart.getInputStream();
 
 			int read = 0;
@@ -73,10 +84,10 @@ public class FileUploadServlet extends HttpServlet {
 			while ((read = filecontent.read(bytes)) != -1) {
 				out.write(bytes, 0, read);
 			}
-			String fileUrl = url + fileName;
+			String fileUrl = url + "/"+fileName;
 			writer.println(fileUrl);
-			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, path });
-			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, url + fileName });
+			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, uploadFilePath });
+			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
 			writer.println("You either did not specify a file to upload or are "
 					+ "trying to upload a file to a protected or nonexistent " + "location.");
