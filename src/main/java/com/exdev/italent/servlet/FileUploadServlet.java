@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -46,18 +47,18 @@ public class FileUploadServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-
-		String applicationPath = request.getServletContext().getRealPath("");
-		String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
-
-		File fileSaveDir = new File(uploadFilePath);
-		if (!fileSaveDir.exists()) {
-			fileSaveDir.mkdirs();
-		}
-		System.out.println("Upload File Directory=" + fileSaveDir.getAbsolutePath());
+//		HttpSession session = request.getSession();
+//		String applicationPath = session.getServletContext().getRealPath("uploads");
+////		String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
+//
+//		File fileSaveDir = new File(applicationPath);
+//		if (!fileSaveDir.exists()) {
+//			fileSaveDir.mkdirs();
+//		}
+//		System.out.println("Upload File Directory=" + fileSaveDir.getAbsolutePath());
 
 		final String name = request.getParameter("name");
-		final String path = request.getServletContext().getRealPath("/");
+//		final String path = request.getServletContext().getRealPath("/");
 		final Part filePart = request.getPart("file");
 
 		OutputStream out = null;
@@ -76,7 +77,8 @@ public class FileUploadServlet extends HttpServlet {
 		final String fileName = name + fileExt;
 		final String url = getServerUri(request) + "/" + UPLOAD_DIR;
 		try {
-			out = new FileOutputStream(new File(uploadFilePath + File.separator + fileName));
+			File file = new File(fileName);
+			out = new FileOutputStream(file);
 			filecontent = filePart.getInputStream();
 
 			int read = 0;
@@ -88,8 +90,8 @@ public class FileUploadServlet extends HttpServlet {
 			String fileUrl = url + "/"+fileName;
 			writer.println(fileUrl);
 			writer.println("<br/>");
-			writer.println(uploadFilePath);
-			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, uploadFilePath });
+			writer.println(file.getAbsolutePath());
+			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, file.getAbsolutePath() });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
 			writer.println("You either did not specify a file to upload or are "
