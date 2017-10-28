@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Servlet Filter implementation class AuthorizationFilter
@@ -39,8 +40,9 @@ public final class AuthorizationFilter implements Filter {
 
 		// pass the request along the filter chain
 
+		HttpServletRequest req = (HttpServletRequest) request;
 		String authKeyServer = request.getServletContext().getInitParameter("AUTH_KEY");
-		String authKeyClient = request.getParameter("AUTH_KEY");
+		String authKeyClient = req.getHeader("AUTH_KEY");
 
 		if (!authKeyServer.equals(authKeyClient))
 			throw new ServletException("AUTH_KEY INVALID");
