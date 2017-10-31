@@ -29,7 +29,7 @@ public class FileUploadServlet extends HttpServlet {
 
 	private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
-	private static final String UPLOAD_DIR = "uploads";
+	private static final String UPLOAD_DIR = "/home/soomaub/public_html/uploads";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,18 +47,13 @@ public class FileUploadServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-//		HttpSession session = request.getSession();
-//		String applicationPath = session.getServletContext().getRealPath("uploads");
-////		String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
-//
-//		File fileSaveDir = new File(applicationPath);
-//		if (!fileSaveDir.exists()) {
-//			fileSaveDir.mkdirs();
-//		}
-//		System.out.println("Upload File Directory=" + fileSaveDir.getAbsolutePath());
+
+		File fileSaveDir = new File(UPLOAD_DIR);
+		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdirs();
+		}
 
 		final String name = request.getParameter("name");
-//		final String path = request.getServletContext().getRealPath("/");
 		final Part filePart = request.getPart("file");
 
 		OutputStream out = null;
@@ -75,9 +70,9 @@ public class FileUploadServlet extends HttpServlet {
 		}
 		final String fileExt = getFileExt(filePart);
 		final String fileName = name + fileExt;
-		final String url = getServerUri(request) + "/" + UPLOAD_DIR;
+		final String url = getServerUri(request) + "/" + "uploads";
 		try {
-			File file = new File(fileName);
+			File file = new File(UPLOAD_DIR+"/"+fileName);
 			out = new FileOutputStream(file);
 			filecontent = filePart.getInputStream();
 
