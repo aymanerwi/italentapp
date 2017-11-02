@@ -30,6 +30,7 @@ public class FileUploadServlet extends HttpServlet {
 	private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
 	private static final String UPLOAD_DIR = "/home/soomaub/public_html/uploads";
+	private static final String DOWNLOAD_DIR = "uploads";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -70,7 +71,7 @@ public class FileUploadServlet extends HttpServlet {
 		}
 		final String fileExt = getFileExt(filePart);
 		final String fileName = name + fileExt;
-		final String url = getServerUri(request) + "/" + "uploads";
+		final String url = getServerUri(request) + "/" + DOWNLOAD_DIR;
 		try {
 			File file = new File(UPLOAD_DIR+"/"+fileName);
 			out = new FileOutputStream(file);
@@ -84,8 +85,6 @@ public class FileUploadServlet extends HttpServlet {
 			}
 			String fileUrl = url + "/"+fileName;
 			writer.println(fileUrl);
-			writer.println("<br/>");
-			writer.println(file.getAbsolutePath());
 			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, file.getAbsolutePath() });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
@@ -124,8 +123,7 @@ public class FileUploadServlet extends HttpServlet {
 		String uri = request.getScheme() + "://" + request.getServerName()
 				+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
 						|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
-								: ":" + request.getServerPort())
-				+ request.getContextPath();
+								: ":" + request.getServerPort());
 
 		return uri;
 	}
