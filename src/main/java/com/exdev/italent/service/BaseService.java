@@ -45,7 +45,8 @@ public class BaseService {
 		obj.setTwitter(owner.getTwitter());
 		obj.setLoginDate(owner.getLoginDate());
 		obj.setLogoutDate(owner.getLogoutDate());
-		
+		obj.setSnapchat(owner.getSnapchat());
+		obj.setFacebook(owner.getFacebook());
 	}
 
 	protected void fillWorkObj(Work work, WorkObj obj) {

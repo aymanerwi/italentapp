@@ -36,9 +36,7 @@ public class OwnerService extends BaseService {
 		String code = DigestUtils.md5Hex(smscode);
 		owner.setSmsCode(code);
 		owner.setDisabled(true);
-		owner.setPhone(obj.getPhone());
-		owner.setName(obj.getName());
-		owner.setNotes(obj.getNotes());
+		fillOwner(obj, owner);
 		owner.setUid(UUID.randomUUID().toString());
 
 		em.getTransaction().begin();
@@ -82,9 +80,10 @@ public class OwnerService extends BaseService {
 		owner.setEmail(obj.getEmail());
 		owner.setInstagram(obj.getInstagram());
 		owner.setNotes(obj.getNotes());
-		owner.setNotes(obj.getNotes());
 		owner.setPhone(obj.getPhone());
 		owner.setTwitter(obj.getTwitter());
+		owner.setSnapchat(obj.getSnapchat());
+		owner.setFacebook(obj.getFacebook());
 	}
 
 	private Owner findOwner(int id) {

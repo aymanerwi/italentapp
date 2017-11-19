@@ -1,6 +1,7 @@
 package com.exdev.italent.api;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -23,24 +24,26 @@ public class ITalentApp extends Application {
 	public static final Properties CONFIG = new Properties();
 	public static final Logger LOGGER = Logger.getLogger("Italentapp Logger");
 
-	private String propFileName = "/WEB-INF/config.properties";
+	public static String CONFIG_FILE_PATH;
 
 	@Override
 	public Set<Object> getSingletons() {
 		setLocalAndTimeZone();
+		CONFIG_FILE_PATH = context.getInitParameter("CONFIG_FILE");
 		loadConfig();
 		LOGGER.info(CONFIG.getProperty("app_name"));
 		return super.getSingletons();
 	}
 
-	private void loadConfig() {
-		LOGGER.info("Loading Configurations: " + propFileName);
+	public static void loadConfig() {
+		LOGGER.info("Loading Configurations: " + CONFIG_FILE_PATH);
 		try {
-			InputStream in = context.getResourceAsStream(propFileName);
+//			InputStream in = context.getResourceAsStream(CONFIG_FILE_PATH);
+			FileReader in = new FileReader(CONFIG_FILE_PATH);
 			if (in != null) {
 				CONFIG.load(in);
 			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+				throw new FileNotFoundException("property file '" + CONFIG_FILE_PATH + "' not found in the classpath");
 			}
 			in.close();
 		} catch (FileNotFoundException e) {

@@ -42,6 +42,10 @@ public class Owner implements Serializable {
 	private String email;
 
 	private String instagram;
+	
+	private String snapchat;
+	
+	private String facebook;
 
 	private String uid;
 
@@ -207,6 +211,22 @@ public class Owner implements Serializable {
 
 	public void setSmsCode(String smsCode) {
 		this.smsCode = smsCode;
+	}
+
+	public String getSnapchat() {
+		return snapchat;
+	}
+
+	public void setSnapchat(String snapchat) {
+		this.snapchat = snapchat;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
 	}
 
 }

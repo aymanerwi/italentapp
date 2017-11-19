@@ -182,8 +182,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>4.3.2.RELEASE</version>
 		</dependency>
+		
+		
 	</dependencies>
 	<profiles>
 		<profile>

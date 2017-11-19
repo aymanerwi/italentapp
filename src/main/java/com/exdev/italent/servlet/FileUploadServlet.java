@@ -29,7 +29,7 @@ public class FileUploadServlet extends HttpServlet {
 
 	private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
-	private static final String UPLOAD_DIR = "/home/soomaub/public_html/uploads";
+	private static String UPLOAD_DIR = "";
 	private static final String DOWNLOAD_DIR = "uploads";
 
 	/**
@@ -37,7 +37,7 @@ public class FileUploadServlet extends HttpServlet {
 	 */
 	public FileUploadServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -46,9 +46,10 @@ public class FileUploadServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		UPLOAD_DIR = getServletContext().getInitParameter("UPLOAD_DIR");
 		response.setContentType("text/html;charset=UTF-8");
-
+		if (UPLOAD_DIR.isEmpty())
+			throw new ServletException("Error: upload dir not configured");
 		File fileSaveDir = new File(UPLOAD_DIR);
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdirs();
@@ -63,7 +64,7 @@ public class FileUploadServlet extends HttpServlet {
 		if (name == null || name.length() == 0) {
 			throw new ServletException("Error: the name must not be empty");
 		}
-		
+
 		if (filePart == null || filePart.getSize() == 0) {
 
 			throw new ServletException("Error: the file must not be empty or size 0");
@@ -73,7 +74,7 @@ public class FileUploadServlet extends HttpServlet {
 		final String fileName = name + fileExt;
 		final String url = getServerUri(request) + "/" + DOWNLOAD_DIR;
 		try {
-			File file = new File(UPLOAD_DIR+"/"+fileName);
+			File file = new File(UPLOAD_DIR + "/" + fileName);
 			out = new FileOutputStream(file);
 			filecontent = filePart.getInputStream();
 
@@ -83,7 +84,7 @@ public class FileUploadServlet extends HttpServlet {
 			while ((read = filecontent.read(bytes)) != -1) {
 				out.write(bytes, 0, read);
 			}
-			String fileUrl = url + "/"+fileName;
+			String fileUrl = url + "/" + fileName;
 			writer.println(fileUrl);
 			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, file.getAbsolutePath() });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
@@ -127,4 +128,5 @@ public class FileUploadServlet extends HttpServlet {
 
 		return uri;
 	}
+	
 }

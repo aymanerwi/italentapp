@@ -15,6 +15,8 @@ public class OwnerObj extends Obj {
 	private String phone;
 
 	private String twitter;
+	private String snapchat;
+	private String facebook;
 	
 	private String uid;
 	
@@ -121,6 +123,18 @@ public class OwnerObj extends Obj {
 	}
 	public void setLogoutDate(Date logoutDate) {
 		this.logoutDate = logoutDate;
+	}
+	public String getSnapchat() {
+		return snapchat;
+	}
+	public void setSnapchat(String snapchat) {
+		this.snapchat = snapchat;
+	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
 	}
 
 	

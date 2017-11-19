@@ -27,15 +27,15 @@ import com.exdev.italent.service.OwnerService;
 public class OwnerApi {
 
 	@POST
-	public Response create(OwnerObj ownerobj, @QueryParam("sms") boolean sms ) {
+	public Response create(OwnerObj ownerobj, @QueryParam("sms") boolean sms) {
 		OwnerService service = new OwnerService();
-		service.registerOwner(ownerobj,sms);
-//		ownerobj = service.getOwner(ownerobj.getId());
+		service.registerOwner(ownerobj, sms);
+		//ownerobj = service.getOwner(ownerobj.getId());
 		service.close();
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(ownerobj.getId())).build())
 				.entity(ownerobj).build();
 	}
-	
+
 	@PUT
 	public Response confirm(ConfirmObj confObj) throws Exception {
 		OwnerService service = new OwnerService();
@@ -44,7 +44,6 @@ public class OwnerApi {
 		return Response.created(UriBuilder.fromResource(OwnerApi.class).path(String.valueOf(obj.getId())).build())
 				.entity(obj).build();
 	}
-	
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
