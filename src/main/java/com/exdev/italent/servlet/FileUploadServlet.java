@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,8 +85,9 @@ public class FileUploadServlet extends HttpServlet {
 			while ((read = filecontent.read(bytes)) != -1) {
 				out.write(bytes, 0, read);
 			}
-			String fileUrl = url + "/" + fileName;
+			String fileUrl = url + "/" + URLEncoder.encode(fileName,"UTF-8");
 			writer.println(fileUrl);
+			
 			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, file.getAbsolutePath() });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
@@ -127,6 +129,12 @@ public class FileUploadServlet extends HttpServlet {
 								: ":" + request.getServerPort());
 
 		return uri;
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		super.doDelete(req, resp);
 	}
 	
 }

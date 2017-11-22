@@ -59,7 +59,7 @@ public class Advertisement implements Serializable {
 
 	private String notes;
 
-	private String price;
+	private double price;
 
 	private String title;
 
@@ -158,11 +158,11 @@ public class Advertisement implements Serializable {
 		this.notes = notes;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
