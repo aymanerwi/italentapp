@@ -43,7 +43,7 @@ public class Work implements Serializable {
 
 	private String title;
 	
-	private byte[] image;
+	private String image;
 	
 	@ManyToOne
 	private Advertisement advertisement;
@@ -108,11 +108,11 @@ public class Work implements Serializable {
 		this.advertisement = advertisement;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

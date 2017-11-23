@@ -56,7 +56,7 @@ public class BaseService {
 		obj.setModifyDate(work.getModifyDate());
 		obj.setNotes(work.getNotes());
 		obj.setTitle(work.getTitle());
-		obj.setImage(encodeBytes(work.getImage()));
+		obj.setImage(work.getImage());
 	}
 
 	protected void fillAdvertisementObj(Advertisement ad, AdvertisementObj obj) {
@@ -77,12 +77,12 @@ public class BaseService {
 		obj.setUid(ad.getUid());
 		obj.setUnit(ad.getUnit());
 		obj.setTitle(ad.getTitle());
-		obj.setImage(encodeBytes(ad.getImage()));
+		obj.setImage(ad.getImage());
 
 		List<Comment> comments = ad.getComments();
 		double rating = getRating(comments);
 		obj.setRating(rating);
-		
+
 		List<CommentObj> commentObjs = toCommentObjsList(comments);
 		obj.setComments(commentObjs);
 
@@ -98,7 +98,7 @@ public class BaseService {
 	private double getRating(List<Comment> comments) {
 		double rating = 0;
 		for (Comment comment : comments) {
-			rating+= comment.getRate();
+			rating += comment.getRate();
 		}
 		rating /= comments.size();
 		return rating;
@@ -172,7 +172,7 @@ public class BaseService {
 
 	protected void fillLicenceObj(Licence licence, LicenceObj obj) {
 		obj.setId(licence.getId());
-		obj.setImage(encodeBytes(licence.getImage()));
+		obj.setImage(licence.getImage());
 		obj.setNotes(licence.getNotes());
 		// AdvertisementObj adObj = new AdvertisementObj();
 		// fillAdvertisementObj(licence.getAdvertisement(), adObj);
@@ -183,7 +183,7 @@ public class BaseService {
 		work.setNotes(obj.getNotes());
 		work.setTitle(obj.getTitle());
 		work.setLink(obj.getLink());
-		work.setImage(decodeString(obj.getImage()));
+		work.setImage(obj.getImage());
 
 		AdvertisementObj adObj = obj.getAd();
 		if (adObj == null)
@@ -193,7 +193,7 @@ public class BaseService {
 	}
 
 	protected void fillLicence(LicenceObj obj, Licence licence) {
-		licence.setImage(decodeString(obj.getImage()));
+		licence.setImage(obj.getImage());
 		licence.setNotes(obj.getNotes());
 		AdvertisementObj adObj = obj.getAd();
 		if (adObj == null)

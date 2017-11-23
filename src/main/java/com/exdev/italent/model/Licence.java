@@ -25,7 +25,7 @@ public class Licence implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private byte[] image;
+	private String image;
 
 	private String notes;
 
@@ -44,11 +44,11 @@ public class Licence implements Serializable {
 		this.id = id;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return this.image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

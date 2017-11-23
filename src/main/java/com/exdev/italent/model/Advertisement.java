@@ -39,7 +39,7 @@ public class Advertisement implements Serializable {
 
 	private String description;
 
-	private byte[] image;
+	private String image;
 
 	private boolean disabled;
 
@@ -220,11 +220,11 @@ public class Advertisement implements Serializable {
 		this.uid = uid;
 	}
 
-	public byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

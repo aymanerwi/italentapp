@@ -76,7 +76,7 @@ public class AdvertisementService extends BaseService {
 			throw new NullPointerException("Owner cannot be null");
 		ad.setOwner(owner);
 		ad.setCertified(obj.isCertified());
-		ad.setImage(decodeString(obj.getImage()));
+		ad.setImage(obj.getImage());
 		ad.setDescription(obj.getDescription());
 		ad.setExpireDate(obj.getExpireDate());
 		ad.setDisabled(obj.isDisabled());
