@@ -24,8 +24,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "advertisement")
-@NamedQueries({ @NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"),
-		@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid") })
+@NamedQueries({ @NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a order by a.id desc"),
+		@NamedQuery(name = "Advertisement.findByOwner", query = "SELECT a FROM Advertisement a where a.owner.id = :ownerid order by a.id desc") })
 public class Advertisement implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -70,15 +70,15 @@ public class Advertisement implements Serializable {
 	private Owner owner;
 
 	// bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy = "advertisement",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "advertisement", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	// bi-directional many-to-one association to Licence
-	@OneToMany(mappedBy = "advertisement",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "advertisement", cascade = CascadeType.ALL)
 	private List<Licence> licences;
 
 	// bi-directional many-to-one association to Work
-	@OneToMany(mappedBy = "advertisement", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "advertisement", cascade = CascadeType.ALL)
 	private List<Work> works;
 
 	private boolean certified;

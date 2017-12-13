@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "owner")
 @NamedQueries({ 
-	@NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o"), 
+	@NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o order by o.id desc"), 
 	@NamedQuery(name = "Owner.findByPhone", query = "SELECT o FROM Owner o where o.phone = :phone") 
 })
 public class Owner implements Serializable {

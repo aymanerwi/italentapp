@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="comment")
-@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c where c.advertisement.id = :adid")
+@NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c where c.advertisement.id = :adid order by c.id desc")
 public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
 

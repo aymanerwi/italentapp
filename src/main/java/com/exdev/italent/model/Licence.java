@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="licence")
-@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.advertisement.id = :adid")
+@NamedQuery(name="Licence.findAll", query="SELECT l FROM Licence l where l.advertisement.id = :adid order by l.id desc")
 public class Licence implements Serializable {
 	private static final long serialVersionUID = 1L;
 
