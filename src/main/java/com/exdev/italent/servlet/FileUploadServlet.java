@@ -85,9 +85,9 @@ public class FileUploadServlet extends HttpServlet {
 			while ((read = filecontent.read(bytes)) != -1) {
 				out.write(bytes, 0, read);
 			}
-			String fileUrl = url + "/" + URLEncoder.encode(fileName,"UTF-8");
+			String fileUrl = url + "/" + URLEncoder.encode(fileName, "UTF-8");
 			writer.println(fileUrl);
-			
+
 			LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[] { fileName, file.getAbsolutePath() });
 			LOGGER.log(Level.INFO, "File {0} url is {1}", new Object[] { fileName, fileUrl });
 		} catch (FileNotFoundException fne) {
@@ -130,11 +130,21 @@ public class FileUploadServlet extends HttpServlet {
 
 		return uri;
 	}
-	
+
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		super.doDelete(req, resp);
+		UPLOAD_DIR = getServletContext().getInitParameter("UPLOAD_DIR");
+		String fileName = req.getParameter("name");
+		File f = new File(UPLOAD_DIR + "/" + fileName);
+		if (f.exists()) {
+			f.delete();
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.getWriter().println(fileName + " Deleted");
+		}
+		else {
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			resp.getWriter().println(fileName + " not exists");
+		}
 	}
-	
+
 }
