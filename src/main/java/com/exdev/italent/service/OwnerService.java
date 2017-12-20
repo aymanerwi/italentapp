@@ -29,8 +29,9 @@ public class OwnerService extends BaseService {
 			owner.setCreateDate(new Date());
 
 		} else {
+			
+			fillOwnerObj(owner, obj);
 			owner.setModifyDate(new Date());
-
 		}
 		String smscode = RandomStringUtils.randomNumeric(4);
 		String code = DigestUtils.md5Hex(smscode);
